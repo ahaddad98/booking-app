@@ -154,7 +154,8 @@ const CardElement = styled.div`
                     margin-left: 1rem;
                     font-family: 'Roboto';
                     font-style: normal;
-                    font-weight: 400;margin-top: 1rem;
+                    font-weight: 400;
+                    margin-top: 1rem;
                     margin-left: 1rem;
                     font-size: 13.2507px;
                     line-height: 16px;

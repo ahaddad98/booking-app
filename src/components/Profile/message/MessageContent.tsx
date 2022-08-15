@@ -16,6 +16,9 @@ const Content = styled.div`
         max-height: 85vh;
         overflow-y: auto;
         min-width: 450px;
+        @media screen and (max-width: 1306px){
+            min-width: 350px;
+        }
         ::-webkit-scrollbar {
               width: 5px;
             }
