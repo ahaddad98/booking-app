@@ -5,7 +5,11 @@ import styled from "styled-components";
 
 const Content = styled.div`
     width: 100%;
-    padding: 6rem;
+    padding: 6rem 6rem 0rem 6rem;
+    //1380
+    @media screen and (max-width: 1573px){
+        padding: 2rem 2rem 0rem 2rem;
+    }
     min-height: 60vh;
     /* height: 80vh; */
     .contentglob{
@@ -85,11 +89,14 @@ const Content = styled.div`
                     }
                     .inp{
                         width: 372px;
+                        width: 400px;
+                        @media screen and (max-width: 1573px){
+                            width: 272px;
+                        }
                         height: 43px;
                         background: #FFFFFF;
                         border: 1.5px solid rgba(45, 57, 98, 0.33);
                         border-radius: 7px;
-                        width: 400px;
                     }
                 }
             }
@@ -114,11 +121,15 @@ const Content = styled.div`
                     }
                     .inp{
                         width: 248px;
+                        width: 400px;
+                        @media screen and (max-width: 1573px){
+                            /* padding: 2rem 2rem 0rem 2rem; */
+                            width: 272px;
+                        }
                         height: 43px;
                         background: #FFFFFF;
                         border: 1.5px solid rgba(45, 57, 98, 0.33);
                         border-radius: 7px;
-                        width: 400px;
                     }
                 }
             }

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+//1573
 const Content = styled.div`
     width: 98%;
     min-height: 190px;
@@ -15,6 +15,15 @@ const Content = styled.div`
     justify-content: space-between;
     align-items: center;
     padding-right: 1rem;
+    height: auto;
+    //1314
+    @media screen and (max-width: 1314px){
+        min-height: 240px;
+    }
+    //1441
+    /* @media screen and (max-width: 1441px){
+        min-width: 1100px;
+    } */
     .leftpart{
         display: flex;
         gap: 4rem;
@@ -23,11 +32,17 @@ const Content = styled.div`
             display: flex;
             flex-direction: column;
             gap: 0.7rem;
+            //1333
             .otherimages{
                 width: 150px;
                 display: flex;
                 gap: 1rem;
                 justify-content: space-between;
+            }
+            @media screen and (max-width: 1333px){
+                /* margin-top: 0rem; */
+                margin-right: 1rem;
+                width: 120px;
             }
         }
         .data{
@@ -36,6 +51,11 @@ const Content = styled.div`
             gap: 2rem;
             margin-top: 2rem;
             margin-left: 3rem;
+            //1483
+            @media screen and (max-width: 1483px){
+                margin-top: 0rem;
+                margin-left: 0rem;
+            }
             .title{
                 font-family: 'Roboto';
                 font-style: normal;
@@ -61,6 +81,12 @@ const Content = styled.div`
             font-size: 16.3256px;
             line-height: 24px;
             color: #667197;
+            white-space: nowrap;
+            @media screen and (max-width: 1483px){
+                font-weight: 400;
+                font-size: 14.3256px;
+                line-height: 24px;
+            }
         }
     }
     }
@@ -84,11 +110,18 @@ const Content = styled.div`
         }
         .pricebottom{
             width: 414px;
+            gap: 2rem;
+            @media screen and (max-width: 1483px){
+                font-weight: 400;
+                font-size: 14.3256px;
+                line-height: 24px;
+                width: 314px;
+                gap: 1rem;
+            }
             height: 45px;
             background: rgba(45, 57, 98, 0.05);
             border-radius: 9px 9px 6px 9px;
             display: flex;
-            gap: 2rem;
             justify-content: center;
             align-items: center;
             
@@ -114,7 +147,6 @@ const ContentCard = (props: any) => {
                     <svg width="48" height="34" viewBox="0 0 48 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0.199463" y="0.56665" width="47.4519" height="33.2163" rx="5.53606" fill="#D9D9D9" fill-opacity="0.44" />
                     </svg>
-
                 </div>
             </div>
             <div className="data">

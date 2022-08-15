@@ -6,6 +6,9 @@ import ContentCard from "./ContentCArd";
 const Content = styled.div`
     width: 100%;
     padding: 4rem 5rem 0rem 9rem;
+    @media screen and (max-width: 1573px){
+        padding: 2rem 2rem 0rem 2rem;
+    }
     display: flex;
     flex-direction: column;
     gap: 2rem;

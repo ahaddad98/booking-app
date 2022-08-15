@@ -7,6 +7,8 @@ const Content = styled.div`
     background: #FFFFFF;
     box-shadow: 0px 120.858px 96.6861px rgba(141, 145, 160, 0.0196802), 0px 50.4914px 40.3931px rgba(141, 145, 160, 0.0282725), 0px 26.9951px 21.5961px rgba(141, 145, 160, 0.035), 0px 15.1333px 12.1066px rgba(141, 145, 160, 0.0417275), 0px 8.03716px 6.42972px rgba(141, 145, 160, 0.0503198), 0px 3.34444px 2.67555px rgba(0, 0, 0, 0.07);
     height: 100vh;
+    position: sticky;
+    top: 0;
     .globcontent{
         display: flex;
         flex-direction: column;

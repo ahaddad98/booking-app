@@ -9,6 +9,10 @@ import { useHistory } from "react-router-dom";
 const Content = styled.div`
     width: 100%;
     padding: 6rem 6rem  0rem 6rem;
+    //1563
+    @media screen and (max-width: 1563px){
+        padding: 2rem 2rem  0rem 2rem;
+    }
     min-height: 60vh;
     /* height: 80vh; */
     .contentglob{
@@ -504,7 +508,7 @@ const Part2 = (props: any) => {
                         <div style={{ color: '#FF6477' }}>
                             +
                         </div>
-                        <div className="" style={{textDecoration: 'underline'}}>
+                        <div className="" style={{ textDecoration: 'underline' }}>
                             Add custom equipment
                         </div>
                     </div>
@@ -512,8 +516,8 @@ const Part2 = (props: any) => {
             </div>
         </div>
         <div className="bottons">
-            <Button type="primary" className="cancel" onClick={()=> his.push('/profile/newannouce')}>Cancel</Button>
-            <Button type="primary" className="next" onClick={()=> his.push('/profile/part3')}>
+            <Button type="primary" className="cancel" onClick={() => his.push('/profile/newannouce')}>Cancel</Button>
+            <Button type="primary" className="next" onClick={() => his.push('/profile/part3')}>
                 <div>
                     Next
                 </div>
