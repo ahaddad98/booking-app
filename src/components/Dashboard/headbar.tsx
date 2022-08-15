@@ -149,14 +149,8 @@ const ContentLefthead = styled.div`
             padding: 1rem;
             min-width: 190px;
             @media screen and (max-width: 400px){
-                /* display: none; */
-                /* min-width: 100px; */
-                /* width: 200px; */
                 width: 100%;
-                /* padding: 5px; */
             }
-            /* width: 100%; */
-            /* min-width: 200px; */
         }
         .localisation{
             .ant-space-item{
@@ -274,7 +268,7 @@ const Headbar = (props: any) => {
                 </div>
             </div>
         </HeadContent>
-        <div className="" style={{ display: 'flex', gap: '1rem' , flexWrap: "wrap", justifyContent:"center"}}>
+        <div className="" style={{ display: 'flex', gap: '1rem' , flexWrap: "wrap"}}>
             <ContentLefthead>
                 <div className="filter">
                     <div className="money">

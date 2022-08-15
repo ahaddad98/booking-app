@@ -9,12 +9,10 @@ import { useHistory } from "react-router-dom";
 const Content = styled.div`
     width: 100%;
     padding: 6rem 6rem  0rem 6rem;
-    //1563
     @media screen and (max-width: 1563px){
         padding: 2rem 2rem  0rem 2rem;
     }
     min-height: 60vh;
-    /* height: 80vh; */
     .contentglob{
         width: 100%;
         display: flex;
@@ -73,6 +71,7 @@ const Content = styled.div`
             display: flex;
             justify-content: center;
             gap: 5rem;
+            flex-wrap: wrap;
             .inputsleft{
                 display: flex;
                 flex-direction: column;
@@ -160,6 +159,7 @@ const Content = styled.div`
                 display: flex;
                 flex-direction: column;
                 gap: 2rem;
+                min-width: 300px;
                 .title{
                     font-family: 'Inter';
                     font-style: normal;
