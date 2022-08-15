@@ -45,7 +45,14 @@ const HeadContent = styled.div`
         align-items: center;
         padding: 1rem;
         gap: 1rem;
+        @media screen and (max-width: 400px){
+            border: 0px solid rgba(45, 57, 98, 0.3);
+            max-width: 53px;
+        }
         .namemailprofile{
+            @media screen and (max-width: 400px){
+                display: none;
+            }
             padding: 1rem;
             display: flex;
             flex-direction: column;
@@ -83,10 +90,21 @@ const ContentLefthead = styled.div`
     padding: 1rem;
     margin-left: 2rem;
     gap: 1rem;
+    min-width: 400px;
+    @media screen and (max-width: 400px){
+        /* display: none; */
+        /* padding: 0; */
+        min-width: 100px;
+        width: 100%;
+        margin-left: 0rem;
+
+        /* padding: 5px; */
+    }
     .filter{
         /* width: calc(100% - 200px); */
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         gap: 1rem;
         .money{
             display: flex;
@@ -98,13 +116,29 @@ const ContentLefthead = styled.div`
             flex-direction: row;
             justify-content: start;
             align-items: center;
-            padding-left: 1rem;
-            padding-right: 1rem;
+            /* padding-left: 1rem; */
+            /* padding-right: 1rem; */
+            min-width: 200px;
+            @media screen and (max-width: 400px){
+                /* display: none; */
+                /* min-width: 100px; */
+                /* width: 200px; */
+                width: 300px;
+                height: 40px;
+                padding: 5px;
+            }
             /* font-size: 40px; */
         }
         .time{
             .ant-space-item{
                 height: 100%;
+                @media screen and (max-width: 400px){
+                /* display: none; */
+                /* min-width: 100px; */
+                /* width: 200px; */
+                width: 250px;
+                /* padding: 5px; */
+            }
             }
             background: rgba(117, 127, 164, 0.08);
             border-radius: 7.22045px;
@@ -113,7 +147,16 @@ const ContentLefthead = styled.div`
             justify-content: start;
             align-items: center;
             padding: 1rem;
-            max-width: 190px;
+            min-width: 190px;
+            @media screen and (max-width: 400px){
+                /* display: none; */
+                /* min-width: 100px; */
+                /* width: 200px; */
+                width: 100%;
+                /* padding: 5px; */
+            }
+            /* width: 100%; */
+            /* min-width: 200px; */
         }
         .localisation{
             .ant-space-item{
@@ -127,7 +170,15 @@ const ContentLefthead = styled.div`
             align-items: center;
             padding: 1rem;
             min-width: 160px;
+            /* width: 100%; */
             gap: 1rem;
+            @media screen and (max-width: 400px){
+                /* display: none; */
+                /* min-width: 100px; */
+                /* width: 200px; */
+                width: 100%;
+                /* padding: 5px; */
+            }
             .text{
                 font-family: 'Roboto';
                 font-style: normal;
@@ -153,6 +204,7 @@ const ContentLefthead = styled.div`
         font-size: 15.5527px;
         line-height: 18px;
         color: #2D3962;
+        height: 45px;
     }
 `
 
@@ -160,6 +212,7 @@ const Bott = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: 174px;
     .btn{
         background: linear-gradient(165.7deg, #2B67F6 -41.04%, #759EFF 136.74%);
         border-radius: 9.05938px;
@@ -177,6 +230,14 @@ const Bott = styled.div`
         text-align: center;    
         color: #FFFFFF;
         width: 174px;
+        @media screen and (max-width: 400px){
+                /* display: none; */
+                /* min-width: 100px; */
+                /* width: 200px; */
+                width: 300px;
+                height: 40px;
+                padding: 5px;
+            }
     }
 `
 
@@ -213,7 +274,7 @@ const Headbar = (props: any) => {
                 </div>
             </div>
         </HeadContent>
-        <div className="" style={{ display: 'flex', gap: '1rem' }}>
+        <div className="" style={{ display: 'flex', gap: '1rem' , flexWrap: "wrap", justifyContent:"center"}}>
             <ContentLefthead>
                 <div className="filter">
                     <div className="money">
