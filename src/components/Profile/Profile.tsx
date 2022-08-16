@@ -16,6 +16,12 @@ const Content = styled.div`
     justify-content: start;
     .contentside{
         width: calc(100vw - 320px);
+        @media screen and (max-width: 1265px){
+          width: calc(100vw);
+            /* display: none; */
+            /* min-width: 200px;
+            width: 240px; */
+        }
     }
 `
 
