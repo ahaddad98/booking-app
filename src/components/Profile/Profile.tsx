@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import Announce from "./announce/Announce";
@@ -26,6 +26,7 @@ const Content = styled.div`
 `
 
 const Profile = (props: any) => {
+    const [show, setShow] = useState(true)
     const switchRoutes = () => {
         return (
           <Switch>
@@ -33,6 +34,7 @@ const Profile = (props: any) => {
                 exact
                   path='/profile/announce'
                   component={Announce}
+                  
                 />
                 <Route 
                     exact
@@ -65,7 +67,10 @@ const Profile = (props: any) => {
         )
       }
     return <Content>
-        <Sidebar />
+      {
+        show && 
+        <Sidebar show={show} setShow={setShow}/>
+      }
         <div className="contentside">
             {switchRoutes()}
         </div>

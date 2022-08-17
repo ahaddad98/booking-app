@@ -63,6 +63,15 @@ const Content = styled.div`
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                .ico{
+                    visibility: hidden;
+                    /* display: none; */
+                    @media screen and (max-width: 1265px){
+                        visibility: visible;
+                        /* flex-direction: column;
+                        gap: 2rem; */
+                    }
+                }
             }
             .avatar{
                 width: 100%;
@@ -134,9 +143,8 @@ const Sidebar = (props: any) => {
     return <Content>
         <div className="globcontent">
             <div className="listpart">
-                <div className="logo" onClick={() => his.push('/')} style={{ cursor: 'pointer' }}>
-                    <div>
-
+                <div className="logo">
+                    <div onClick={() => his.push('/')} style={{ cursor: 'pointer' }}>
                         <svg width="186" height="46" viewBox="0 0 186 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_157_685)">
                                 <path d="M56.1238 32.6159H69.1605V28.6892H60.7573V13.8987H56.1238V32.6159Z" fill="#2D3962" />
@@ -157,7 +165,7 @@ const Sidebar = (props: any) => {
                             </defs>
                         </svg>
                     </div>
-                    <i className="fi fi-br-x"></i>
+                    <i className="fi fi-br-x ico" onClick={()=> props.setShow(false)}></i>
                 </div>
                 <div className="avatar">
                     <img src="/1.png" alt="" />

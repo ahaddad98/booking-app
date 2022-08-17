@@ -3,7 +3,7 @@ import styled from "styled-components";
 //1573
 const Content = styled.div`
     width: 98%;
-    min-height: 190px;
+    /* min-height: 190px; */
     background: #FFFFFF;
     border: 0.677749px solid #E0E0E0;
     box-shadow: 0px 1.3555px 2.711px rgba(45, 57, 98, 0.08);
@@ -12,6 +12,7 @@ const Content = styled.div`
     display: flex;
     gap: 2rem;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding-right: 1rem;
@@ -20,6 +21,16 @@ const Content = styled.div`
     @media screen and (max-width: 1314px){
         min-height: 240px;
     }
+    @media screen and (max-width: 945px){
+        min-height: 340px;
+    }
+    @media screen and (max-width: 650px){
+                /* margin-top: 0rem; */
+                /* margin-right: 1rem;
+                width: 120px; */
+                /* flex-wrap: wrap; */
+        min-height: 600px;
+    }
     //1441
     /* @media screen and (max-width: 1441px){
         min-width: 1100px;
@@ -27,6 +38,12 @@ const Content = styled.div`
     .leftpart{
         display: flex;
         gap: 4rem;
+        @media screen and (max-width: 650px){
+                /* margin-top: 0rem; */
+                /* margin-right: 1rem;
+                width: 120px; */
+                flex-wrap: wrap;
+            }
         .image{
             width: 150px;
             display: flex;
@@ -46,15 +63,22 @@ const Content = styled.div`
             }
         }
         .data{
+            
             display: flex;
             flex-direction: column;
             gap: 2rem;
             margin-top: 2rem;
             margin-left: 3rem;
             //1483
-            @media screen and (max-width: 1483px){
+            @media screen and (max-width: 650px){
+                    width: 100% !important;
+                }
+            @media screen and (max-width: 1483px) and  (min-width:  651px){
                 margin-top: 0rem;
                 margin-left: 0rem;
+            }
+            @media screen and (max-width: 945px){
+                width: calc(100% - 150px);
             }
             .title{
                 font-family: 'Roboto';
@@ -63,38 +87,59 @@ const Content = styled.div`
             font-size: 24.4885px;
             line-height: 29px;        
             color: #2D3962;
-        }
-        .localisation{
-            display: flex;
-            gap: 1rem;
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16.3256px;
-            line-height: 19px;        
-            color: #2D3962;
-        }
-        .compose{
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16.3256px;
-            line-height: 24px;
-            color: #667197;
-            white-space: nowrap;
-            @media screen and (max-width: 1483px){
+            }
+            .localisation{
+                display: flex;
+                gap: 1rem;
+                font-family: 'Roboto';
+                font-style: normal;
                 font-weight: 400;
-                font-size: 14.3256px;
+                font-size: 16.3256px;
+                line-height: 19px;        
+                color: #2D3962;
+            }
+                .compose{
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16.3256px;
                 line-height: 24px;
+                color: #667197;
+                /* white-space: nowrap; */
+                @media screen and (max-width: 1483px){
+                    font-weight: 400;
+                    font-size: 14.3256px;
+                    line-height: 24px;
+                }
+                @media screen and (max-width: 650px){
+                    width: 100%;
+                    /* font-weight: 400;
+                    font-size: 14.3256px;
+                    line-height: 24px; */
+                }
             }
         }
-    }
     }
     .price{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         height: 170px;
+        flex-wrap: wrap;
+        @media screen and (max-width: 650px){
+            width: 100%;
+                /* height: auto; */
+                /* flex-direction: row; */
+                /* justify-content: start; */
+                /* gap: 2rem; */
+            /* min-height: 340px; */
+            }
+        @media screen and (max-width: 945px){
+            width: 100%;
+            height: auto;
+            flex-direction: row;
+            /* min-height: 340px; */
+        }
         .pricetop{
             width: 100%;
             display: flex;
@@ -107,6 +152,22 @@ const Content = styled.div`
             font-size: 18.6528px;
             line-height: 33px;        
             color: #2D3962;
+            @media screen and (max-width: 945px){
+            /* width: 100%; */
+                height: auto;
+                flex-direction: row;
+                justify-content: start;
+                gap: 2rem;
+            /* min-height: 340px; */
+            }
+            @media screen and (max-width: 945px){
+            /* width: 100%; */
+                /* height: auto;
+                flex-direction: row;
+                justify-content: start;
+                gap: 2rem;
+            min-height: 340px; */
+            }
         }
         .pricebottom{
             width: 414px;
@@ -124,6 +185,14 @@ const Content = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
+            @media screen and (max-width: 945px){
+            /* width: 100%; */
+                /* height: auto; */
+                /* flex-direction: row;
+                justify-content: center; */
+                /* gap: 2rem; */
+            /* min-height: 340px; */
+            }
             
         }
     }
