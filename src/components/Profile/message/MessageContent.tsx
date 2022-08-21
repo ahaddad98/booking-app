@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Chat from "./chat";
+import { Tabs } from 'antd';
 
 const Content = styled.div`
     width: 100%;
@@ -85,154 +86,173 @@ const Content = styled.div`
 `
 
 const MessageContent = (props: any) => {
-    return <Content>
-        <div className="listfriends">
-            <div className="listelement">
-                <div className="right">
-                    <img src="/1.png" style={{ width: "60px" }} alt="" />
-                    <div className="middle">
-                        <div className="name">
-                            Emily Dorson
-                        </div>
-                        <div className="msg">
-                            Table for four, 5PM. Be there.
+    const { TabPane } = Tabs;
+    const onChange = (key: string) => {
+        console.log(key);
+    };
+    return <>
+        {/* <div>
+            <Tabs defaultActiveKey="1" onChange={onChange}>
+                <TabPane tab="Tab 1" key="1">
+                    Content of Tab Pane 1
+                </TabPane>
+                <TabPane tab="Tab 2" key="2">
+                    Content of Tab Pane 2
+                </TabPane>
+                <TabPane tab="Tab 3" key="3">
+                    Content of Tab Pane 3
+                </TabPane>
+            </Tabs>
+        </div> */}
+        <Content>
+            <div className="listfriends">
+                <div className="listelement">
+                    <div className="right">
+                        <img src="/1.png" style={{ width: "60px" }} alt="" />
+                        <div className="middle">
+                            <div className="name">
+                                Emily Dorson
+                            </div>
+                            <div className="msg">
+                                Table for four, 5PM. Be there.
+                            </div>
                         </div>
                     </div>
+                    <div className="time" >
+                        17:42
+                    </div>
                 </div>
-                <div className="time" >
-                    17:42
+                <div className="listelement" style={{ background: "#FFFFFF" }}>
+                    <div className="right">
+                        <img src="/1.png" style={{ width: "60px" }} alt="" />
+                        <div className="middle">
+                            <div className="name">
+                                Emily Dorson
+                            </div>
+                            <div className="msg">
+                                Table for four, 5PM. Be there.
+                            </div>
+                        </div>
+                    </div>
+                    <div className="time" >
+                        17:42
+                    </div>
+                </div>
+                <div className="listelement">
+                    <div className="right">
+                        <img src="/1.png" style={{ width: "60px" }} alt="" />
+                        <div className="middle">
+                            <div className="name">
+                                Emily Dorson
+                            </div>
+                            <div className="msg">
+                                Table for four, 5PM. Be there.
+                            </div>
+                        </div>
+                    </div>
+                    <div className="time" >
+                        17:42
+                    </div>
+                </div><div className="listelement" style={{ background: "#FFFFFF" }}>
+                    <div className="right">
+                        <img src="/1.png" style={{ width: "60px" }} alt="" />
+                        <div className="middle">
+                            <div className="name">
+                                Emily Dorson
+                            </div>
+                            <div className="msg">
+                                Table for four, 5PM. Be there.
+                            </div>
+                        </div>
+                    </div>
+                    <div className="time" >
+                        17:42
+                    </div>
+                </div>
+                <div className="listelement">
+                    <div className="right">
+                        <img src="/1.png" style={{ width: "60px" }} alt="" />
+                        <div className="middle">
+                            <div className="name">
+                                Emily Dorson
+                            </div>
+                            <div className="msg">
+                                Table for four, 5PM. Be there.
+                            </div>
+                        </div>
+                    </div>
+                    <div className="time" >
+                        17:42
+                    </div>
+                </div>
+                <div className="listelement" style={{ background: "#FFFFFF" }}>
+                    <div className="right">
+                        <img src="/1.png" style={{ width: "60px" }} alt="" />
+                        <div className="middle">
+                            <div className="name">
+                                Emily Dorson
+                            </div>
+                            <div className="msg">
+                                Table for four, 5PM. Be there.
+                            </div>
+                        </div>
+                    </div>
+                    <div className="time" >
+                        17:42
+                    </div>
+                </div>
+                <div className="listelement">
+                    <div className="right">
+                        <img src="/1.png" style={{ width: "60px" }} alt="" />
+                        <div className="middle">
+                            <div className="name">
+                                Emily Dorson
+                            </div>
+                            <div className="msg">
+                                Table for four, 5PM. Be there.
+                            </div>
+                        </div>
+                    </div>
+                    <div className="time" >
+                        17:42
+                    </div>
+                </div>
+                <div className="listelement" style={{ background: "#FFFFFF" }}>
+                    <div className="right">
+                        <img src="/1.png" style={{ width: "60px" }} alt="" />
+                        <div className="middle">
+                            <div className="name">
+                                Emily Dorson
+                            </div>
+                            <div className="msg">
+                                Table for four, 5PM. Be there.
+                            </div>
+                        </div>
+                    </div>
+                    <div className="time" >
+                        17:42
+                    </div>
+                </div>
+                <div className="listelement">
+                    <div className="right">
+                        <img src="/1.png" style={{ width: "60px" }} alt="" />
+                        <div className="middle">
+                            <div className="name">
+                                Emily Dorson
+                            </div>
+                            <div className="msg">
+                                Table for four, 5PM. Be there.
+                            </div>
+                        </div>
+                    </div>
+                    <div className="time" >
+                        17:42
+                    </div>
                 </div>
             </div>
-            <div className="listelement" style={{background: "#FFFFFF"}}>
-                <div className="right">
-                    <img src="/1.png" style={{ width: "60px" }} alt="" />
-                    <div className="middle">
-                        <div className="name">
-                            Emily Dorson
-                        </div>
-                        <div className="msg">
-                            Table for four, 5PM. Be there.
-                        </div>
-                    </div>
-                </div>
-                <div className="time" >
-                    17:42
-                </div>
-            </div>
-            <div className="listelement">
-                <div className="right">
-                    <img src="/1.png" style={{ width: "60px" }} alt="" />
-                    <div className="middle">
-                        <div className="name">
-                            Emily Dorson
-                        </div>
-                        <div className="msg">
-                            Table for four, 5PM. Be there.
-                        </div>
-                    </div>
-                </div>
-                <div className="time" >
-                    17:42
-                </div>
-            </div><div className="listelement" style={{background: "#FFFFFF"}}>
-                <div className="right">
-                    <img src="/1.png" style={{ width: "60px" }} alt="" />
-                    <div className="middle">
-                        <div className="name">
-                            Emily Dorson
-                        </div>
-                        <div className="msg">
-                            Table for four, 5PM. Be there.
-                        </div>
-                    </div>
-                </div>
-                <div className="time" >
-                    17:42
-                </div>
-            </div>
-            <div className="listelement">
-                <div className="right">
-                    <img src="/1.png" style={{ width: "60px" }} alt="" />
-                    <div className="middle">
-                        <div className="name">
-                            Emily Dorson
-                        </div>
-                        <div className="msg">
-                            Table for four, 5PM. Be there.
-                        </div>
-                    </div>
-                </div>
-                <div className="time" >
-                    17:42
-                </div>
-            </div>
-            <div className="listelement" style={{background: "#FFFFFF"}}>
-                <div className="right">
-                    <img src="/1.png" style={{ width: "60px" }} alt="" />
-                    <div className="middle">
-                        <div className="name">
-                            Emily Dorson
-                        </div>
-                        <div className="msg">
-                            Table for four, 5PM. Be there.
-                        </div>
-                    </div>
-                </div>
-                <div className="time" >
-                    17:42
-                </div>
-            </div>
-            <div className="listelement">
-                <div className="right">
-                    <img src="/1.png" style={{ width: "60px" }} alt="" />
-                    <div className="middle">
-                        <div className="name">
-                            Emily Dorson
-                        </div>
-                        <div className="msg">
-                            Table for four, 5PM. Be there.
-                        </div>
-                    </div>
-                </div>
-                <div className="time" >
-                    17:42
-                </div>
-            </div>
-            <div className="listelement" style={{background: "#FFFFFF"}}>
-                <div className="right">
-                    <img src="/1.png" style={{ width: "60px" }} alt="" />
-                    <div className="middle">
-                        <div className="name">
-                            Emily Dorson
-                        </div>
-                        <div className="msg">
-                            Table for four, 5PM. Be there.
-                        </div>
-                    </div>
-                </div>
-                <div className="time" >
-                    17:42
-                </div>
-            </div>
-            <div className="listelement">
-                <div className="right">
-                    <img src="/1.png" style={{ width: "60px" }} alt="" />
-                    <div className="middle">
-                        <div className="name">
-                            Emily Dorson
-                        </div>
-                        <div className="msg">
-                            Table for four, 5PM. Be there.
-                        </div>
-                    </div>
-                </div>
-                <div className="time" >
-                    17:42
-                </div>
-            </div>
-        </div>
-        <Chat />
-    </Content>
+            <Chat />
+        </Content>
+    </>
 }
 
 export default MessageContent

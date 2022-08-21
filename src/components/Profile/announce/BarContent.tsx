@@ -21,9 +21,6 @@ const Content = styled.div`
             width: 380px;
             @media screen and (max-width: 650px){
                     width: 240px;
-                    /* font-weight: 400;
-                    font-size: 14.3256px;
-                    line-height: 24px; */
                 }
             background: #FFFFFF;
             border: 1.5px solid rgba(45, 57, 98, 0.33);

@@ -9,6 +9,9 @@ const Content = styled.div`
     @media screen and (max-width: 1573px){
         padding: 2rem 2rem 0rem 2rem;
     }
+    @media screen and (max-width: 473px) {
+        padding: 1rem 1rem 0rem 1rem;
+    }
     display: flex;
     flex-direction: column;
     gap: 2rem;

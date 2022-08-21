@@ -25,11 +25,10 @@ const Content = styled.div`
         min-height: 340px;
     }
     @media screen and (max-width: 650px){
-                /* margin-top: 0rem; */
-                /* margin-right: 1rem;
-                width: 120px; */
-                /* flex-wrap: wrap; */
-        min-height: 600px;
+        min-height: 400px;
+        gap: 0;
+        margin: 0;
+        padding: 0;
     }
     //1441
     /* @media screen and (max-width: 1441px){
@@ -43,6 +42,7 @@ const Content = styled.div`
                 /* margin-right: 1rem;
                 width: 120px; */
                 flex-wrap: wrap;
+                gap: 0;
             }
         .image{
             width: 150px;
@@ -57,18 +57,22 @@ const Content = styled.div`
                 justify-content: space-between;
             }
             @media screen and (max-width: 1333px){
-                /* margin-top: 0rem; */
                 margin-right: 1rem;
                 width: 120px;
             }
+            @media screen and (max-width: 400px){
+                width: 100%;
+                align-items: center;
+                gap: 0.5rem;
+            }
         }
         .data{
-            
             display: flex;
             flex-direction: column;
             gap: 2rem;
             margin-top: 2rem;
             margin-left: 3rem;
+            width: 100%;
             //1483
             @media screen and (max-width: 650px){
                     width: 100% !important;
@@ -79,14 +83,28 @@ const Content = styled.div`
             }
             @media screen and (max-width: 945px){
                 width: calc(100% - 150px);
+                gap: 0.5rem;
+            }
+            @media screen and (max-width: 400px){
+                width: calc(100% - 150px);
+                margin: 0;
+                gap: 0.5rem;
+                align-items: center;
+                /* font-size: 7px; */
             }
             .title{
                 font-family: 'Roboto';
                 font-style: normal;
                 font-weight: 500;
-            font-size: 24.4885px;
-            line-height: 29px;        
-            color: #2D3962;
+                font-size: 24.4885px;
+                line-height: 29px;        
+                color: #2D3962;
+                @media screen and (max-width: 400px){
+                /* width: calc(100% - 150px);
+                margin: 0; */
+                font-size: 19px;
+                margin-top: .5rem;
+                }
             }
             .localisation{
                 display: flex;
@@ -97,14 +115,21 @@ const Content = styled.div`
                 font-size: 16.3256px;
                 line-height: 19px;        
                 color: #2D3962;
+                @media screen and (max-width: 400px){
+                /* width: calc(100% - 150px);
+                margin: 0; */
+                font-size: 13px;
+                /* margin-top: .5rem; */
+                }
             }
                 .compose{
-                font-family: 'Roboto';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 16.3256px;
-                line-height: 24px;
-                color: #667197;
+                    /* display: flex; */
+                    font-family: 'Roboto';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 16.3256px;
+                    line-height: 24px;
+                    color: #667197;
                 /* white-space: nowrap; */
                 @media screen and (max-width: 1483px){
                     font-weight: 400;
@@ -116,6 +141,14 @@ const Content = styled.div`
                     /* font-weight: 400;
                     font-size: 14.3256px;
                     line-height: 24px; */
+                }
+                @media screen and (max-width: 400px){
+                /* width: calc(100% - 150px);
+                margin: 0; */
+                font-size: 13px;
+                align-items: center;
+                padding: .5rem;
+                /* margin-top: .5rem; */
                 }
             }
         }
@@ -140,6 +173,7 @@ const Content = styled.div`
             flex-direction: row;
             /* min-height: 340px; */
         }
+        /* width: 100%; */
         .pricetop{
             width: 100%;
             display: flex;
@@ -153,20 +187,29 @@ const Content = styled.div`
             line-height: 33px;        
             color: #2D3962;
             @media screen and (max-width: 945px){
-            /* width: 100%; */
+                /* width: 100%; */
                 height: auto;
                 flex-direction: row;
                 justify-content: start;
                 gap: 2rem;
-            /* min-height: 340px; */
+                /* min-height: 340px; */
             }
             @media screen and (max-width: 945px){
-            /* width: 100%; */
+                /* width: 100%; */
                 /* height: auto;
                 flex-direction: row;
                 justify-content: start;
                 gap: 2rem;
-            min-height: 340px; */
+                min-height: 340px; */
+            }
+            @media screen and (max-width: 400px){
+                /* width: calc(100% - 150px);
+                margin: 0; */
+                font-size: 13px;
+                align-items: center;
+                justify-content: center;
+                /* padding: .5rem; */
+                /* margin-top: .5rem; */
             }
         }
         .pricebottom{
@@ -192,6 +235,16 @@ const Content = styled.div`
                 justify-content: center; */
                 /* gap: 2rem; */
             /* min-height: 340px; */
+            }
+            @media screen and (max-width: 400px){
+                /* width: calc(100% - 150px);
+                margin: 0; */
+                width: 100%;
+                font-size: 13px;
+                align-items: center;
+                justify-content: center;
+                /* padding: .5rem; */
+                /* margin-top: .5rem; */
             }
             
         }
@@ -229,7 +282,7 @@ const ContentCard = (props: any) => {
                     </div>
                 </div>
                 <div className='compose'>
-                    Wifi • Air conditioning • Kitchen • Heating • Smokers
+                    Wifi • Air conditioning • Kitchen • Heating • Smokers 
                     <br />
                     • Parking • Balcony • Animal friendly
                 </div>

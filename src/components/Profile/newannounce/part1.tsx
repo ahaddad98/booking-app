@@ -7,8 +7,11 @@ const Content = styled.div`
     width: 100%;
     padding: 6rem 6rem 0rem 6rem;
     //1380
-    @media screen and (max-width: 1573px){
+    @media screen and (max-width: 1573px) {
         padding: 2rem 2rem 0rem 2rem;
+    }
+    @media screen and (max-width: 473px) {
+        padding: 1rem 1rem 0rem 1rem;
     }
     min-height: 60vh;
     /* height: 80vh; */
