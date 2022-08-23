@@ -14,7 +14,6 @@ const Content = styled.div`
         padding: 1rem 1rem 0rem 1rem;
     }
     min-height: 60vh;
-    /* height: 80vh; */
     .contentglob{
         width: 100%;
         display: flex;
@@ -28,6 +27,9 @@ const Content = styled.div`
             display: flex;
             justify-content: space-around;
             align-items: center;
+            @media screen and (max-width: 700px){
+                flex-direction: column;
+            }
             .card1{
                 width: 238px;
                 height: 121px;        
@@ -67,6 +69,12 @@ const Content = styled.div`
                 width: 100px;
                 height: 1px;
                 border: 1px solid #CACACC;
+                @media screen and (max-width: 700px){
+                    flex-direction: column;
+                    /* rotate: calc(90deg); */
+                    width: 1px;
+                    height: 50px;
+                }
             }
         }
         .inputs{
@@ -74,6 +82,9 @@ const Content = styled.div`
             display: flex;
             justify-content: center;
             gap: 5rem;
+            @media screen and (max-width: 700px){
+                flex-wrap: wrap;
+            }
             .inputsleft{
                 display: flex;
                 flex-direction: column;

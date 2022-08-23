@@ -4,10 +4,19 @@ import styled from "styled-components";
 
 const Content = styled.div`
     width: 100%;
+    width: 100%;
+    background: #FFFFFF;
+    border: 0.677749px solid #E0E0E0;
+    box-shadow: 0px 1.3555px 2.711px rgba(45, 57, 98, 0.08);
+    border-radius: 8.13299px;
     height: inherit;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    /* display: none;
+    @media screen and (max-width: 770px){
+        display: contents;
+    } */
     /* padding-right: 2rem; */
     .headpart{
         /* border-bottom: 0.919186px solid #B2B7CB; */
@@ -25,8 +34,7 @@ const Content = styled.div`
         }
     }
     .hrline{
-        width: 98%;
-        margin-left: 1rem;
+        width: 100%;
     }
     .chat{
         height: calc(80vh - 160px);
