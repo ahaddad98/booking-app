@@ -1,7 +1,6 @@
 import { Button, Select } from "antd";
 import React from "react";
 import styled from "styled-components";
-import Map2 from "./Carte";
 import { Rate } from 'antd';
 import { Image } from 'antd';
 import { useHistory } from "react-router-dom";
@@ -558,7 +557,7 @@ const ContentPage = (props: any) => {
                                 Par mois
                             </div>
                         </div>
-                        <Button className="mybtn" onClick={()=>his.push('/checkin')}>
+                        <Button className="mybtn" >
                             Reserver
                         </Button>
                     </div>
@@ -638,7 +637,7 @@ const ContentPage = (props: any) => {
                                 Par mois
                             </div>
                         </div>
-                        <Button className="mybtn">
+                        <Button className="mybtn" >
                             Reserver
                         </Button>
                     </div>
@@ -718,7 +717,7 @@ const ContentPage = (props: any) => {
                                 Par mois
                             </div>
                         </div>
-                        <Button className="mybtn">
+                        <Button className="mybtn" >
                             Reserver
                         </Button>
                     </div>
@@ -726,7 +725,7 @@ const ContentPage = (props: any) => {
             </CardElement>
         </div>
         <div className="Carte">
-            <Map2 />
+            {/* <Map2 /> */}
         </div>
     </Content>
 }

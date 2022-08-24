@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 import Login from './pages/login';
 import Dashboard from './components/Dashboard/Dashboard';
 import Profile from './components/Profile/Profile';
+import Checkin from './components/checkin/Dashboard';
 
 const App = () => {
   return (
@@ -15,6 +16,9 @@ const App = () => {
           </Route>
           <Route  path='/profile'
             component={Profile}>
+          </Route>
+          <Route  path='/checkin'
+            component={Checkin}>
           </Route>
           <Route exact path='/'
             component={Dashboard}>
