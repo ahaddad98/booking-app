@@ -268,7 +268,7 @@ const Headbar = (props: any) => {
                 </div>
             </div>
         </HeadContent>
-        <div className="" style={{ display: 'flex', gap: '1rem' , flexWrap: "wrap"}}>
+        {/* <div className="" style={{ display: 'flex', gap: '1rem' , flexWrap: "wrap"}}>
             <ContentLefthead>
                 <div className="filter">
                     <div className="money">
@@ -357,7 +357,7 @@ const Headbar = (props: any) => {
                     </div>
                 </Button>
             </Bott>
-        </div>
+        </div> */}
     </HeadContentgloab>
 }
 
