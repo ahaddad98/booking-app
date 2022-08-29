@@ -28,7 +28,7 @@ function Map2(props: any) {
     return (
         <MapContainer
             id='MapContainer1'
-            style={{ marginLeft: "0em", top: "2px", marginTop: "0em", width: "100%", height: "75vh", border: "1px solid #18B6C0" }}
+            style={{ marginLeft: "0em", top: "2px", marginTop: "0em", width: "100%", height: "700px", border: "1px solid #18B6C0" }}
             center={position} zoom={10} scrollWheelZoom={true} >
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

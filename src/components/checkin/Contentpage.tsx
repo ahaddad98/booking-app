@@ -1,11 +1,24 @@
 import { Button, Select } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Rate } from 'antd';
 import { Image } from 'antd';
 import { useHistory } from "react-router-dom";
 import { Col, Row, Divider } from 'antd';
 import Map2 from "./Carte";
+// import DatePicker from "react-datepicker";
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import { format } from 'date-fns';
+import { DatePicker, Space } from 'antd';
+import { Carousel } from 'antd';
+const contentStyle: React.CSSProperties = {
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+  };
 const Content = styled.div`
     width: 100%;
     display: flex;
@@ -287,8 +300,16 @@ const Contact = styled.div`
 `
 
 const ContentPage = (props: any) => {
+    const { RangePicker } = DatePicker;
     const { Option } = Select;
-    const handleChange = Composant
+    const handleChange = Composant;
+    const [startDate, setStartDate] = useState(new Date());
+    const [selected, setSelected] = React.useState<Date>();
+
+    let footer = <p>Please pick a day.</p>;
+    if (selected) {
+        footer = <p>You picked {format(selected, 'PP')}.</p>;
+    }
     // Composant
     // Composant (value: string) => {
     //     console.log(`selected ${value}`);
@@ -613,7 +634,14 @@ const ContentPage = (props: any) => {
                     </div>
                 </div>
                 <div style={{ width: '60%', marginTop: '2rem' }}>
+                    {/* <RangePicker /> */}
+                    {/* <DatePicker selected={startDate} onChange={(date:Date) => setStartDate(date)} /> */}
                     <Map2 />
+                    {/* <DayPicker numberOfMonths={2}
+                        selected={selected}
+                        onSelect={setSelected}
+                        footer={footer}
+                    />; */}
                 </div>
             </Service>
             <hr style={{ margin: '2rem' }} />
