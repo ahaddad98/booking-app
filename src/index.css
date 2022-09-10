@@ -235,3 +235,23 @@ element.style {
   box-shadow: 0 0 0 0px rgb(24 144 255 / 20%);
   outline: 0;
 }
+
+.leaflet-control-attribution a {
+  text-decoration: none;
+  display: none;
+}
+
+@keyframes mymoveon {
+  from {width: 50%;}
+  to {width: 0;}
+}
+
+@keyframes mymovein {
+  from {width: 50%;}
+  to {width: 100%;}
+}
+
+@keyframes mymoveonmap {
+  from {width: 0}
+  to {width: 50%;}
+}

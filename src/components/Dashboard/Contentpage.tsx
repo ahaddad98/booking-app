@@ -1,5 +1,5 @@
 import { Button, Select } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Map2 from "./Carte";
 import { Rate } from 'antd';
@@ -40,62 +40,57 @@ const Content = styled.div`
         @media screen and (max-width: 1190px){
             width: 70%;
         }
-        /* border-right: 2px solid rgba(69, 75, 95, 0.17); */
         @media screen and (max-width: 1200px){
             border-right: 0px solid rgba(69, 75, 95, 0.17);
             width: 100%;
         }
         .Cardglob{
-        /* padding: 0rem 0 2rem 0; */
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        max-height: 75vh;
-        overflow-y: auto;
-        margin-right: 1rem;
-        ::-webkit-scrollbar {
-            width: 5px;
-            border-radius: 4.5px;
-            /* margin-right: 1rem; */
-            /* margin: 1rem; */
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0);
-            border-radius: 4.5px;
-            
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(91, 147, 255, 0.12) ;
-            background: #C4C4C4;
-            border-radius: 4.5px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #5D7285; 
-            background: #C4C4C4;
-            border-radius: 4.5px;
-        }
-        @media screen and (max-width: 1200px){
-            border-right: 0px solid rgba(69, 75, 95, 0.17);
-            width: 100%;
-            max-height: 300vh;
-            overflow-y: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-height: 75vh;
+            overflow-y: auto;
+            margin-right: 1rem;
             ::-webkit-scrollbar {
-                width: 0px;
-                margin-right: 0rem;
+                width: 5px;
+                border-radius: 4.5px;
             }
             ::-webkit-scrollbar-track {
-              background: rgba(0,0,0,0); 
+                background: rgba(0,0,0,0);
+                border-radius: 4.5px;
+
             }
             ::-webkit-scrollbar-thumb {
-                background: rgba(91, 147, 255, 0.12) 
+                background: rgba(91, 147, 255, 0.12) ;
+                background: #C4C4C4;
+                border-radius: 4.5px;
             }
             ::-webkit-scrollbar-thumb:hover {
                 background: #5D7285; 
+                background: #C4C4C4;
+                border-radius: 4.5px;
             }
-        }
+            @media screen and (max-width: 1200px){
+                border-right: 0px solid rgba(69, 75, 95, 0.17);
+                width: 100%;
+                max-height: 300vh;
+                overflow-y: hidden;
+                ::-webkit-scrollbar {
+                    width: 0px;
+                    margin-right: 0rem;
+                }
+                ::-webkit-scrollbar-track {
+                  background: rgba(0,0,0,0); 
+                }
+                ::-webkit-scrollbar-thumb {
+                    background: rgba(91, 147, 255, 0.12) 
+                }
+                ::-webkit-scrollbar-thumb:hover {
+                    background: #5D7285; 
+                }
+            }
             
-
-            }
+        }
     }
     .Carte{
         width: 50%;
@@ -114,76 +109,101 @@ const Content = styled.div`
         }
         padding: 0rem 2rem 0rem 2rem;
     }
-`
-
-const Cardhead = styled.div`
-    width: 100%;
-    min-height: 150px;
-    display: flex;
-    flex-direction: column;
-    /* justify-content: space-between; */
-    padding: 1rem;
-    .Cardheadtop{
-        width: 100%;
+    .toshowmap{
+        width: 40px;
+        height: 40px;
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        .Cardheadtopleft{
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            .title1{
-                font-family: 'Roboto';
-                font-style: normal;
-                font-weight: 500;
-                font-size: 28px;
-                line-height: 33px;            
-                color: #2D3962;
-            }
-            .title2{
-                font-family: 'Roboto';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 20px;
-                line-height: 23px;            
-                color: #667197;
-            }
-        }
-        .Cardheadtopright{
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            align-items: center;
-        }
-    }
-    .Cardheadbottom{
-        display: flex;
-        flex-direction: row;
-        justify-content: start;
-        align-items: center;
-        gap: 2rem;
-        flex-wrap: wrap;
-        .trie{
-            margin-top: 2rem;
-        }
-        .price{
+        position: absolute;
+        margin-top: 8rem;
+        background: #a51212;
+        right: 0;
+        background: #FFFFFF;
+        box-shadow: 0px 1.125px 4.5px rgba(26, 26, 67, 0.1);
+        .fi-sr-map{
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1rem;
-            border: 1px solid #2D3962;
-            border-radius: 8px;
-            padding: 0.5rem 1rem 0.5rem 1rem;
-            margin-top: 2rem;
-            min-width: 150px;
-            flex-wrap: wrap;
-            .Pricename{
-
-            }
+            font-size: 18px;
+            animation: mymovee 5s infinite;
+            cursor: pointer;
         }
     }
+    @keyframes mymovee {
+        50% {transform: rotate(180deg);}
+    }
 `
+
+// const Cardhead = styled.div`
+//     width: 100%;
+//     min-height: 150px;
+//     display: flex;
+//     flex-direction: column;
+//     /* justify-content: space-between; */
+//     padding: 1rem;
+//     .Cardheadtop{
+//         width: 100%;
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: space-between;
+//         align-items: center;
+//         .Cardheadtopleft{
+//             display: flex;
+//             flex-direction: column;
+//             gap: 1rem;
+//             .title1{
+//                 font-family: 'Roboto';
+//                 font-style: normal;
+//                 font-weight: 500;
+//                 font-size: 28px;
+//                 line-height: 33px;            
+//                 color: #2D3962;
+//             }
+//             .title2{
+//                 font-family: 'Roboto';
+//                 font-style: normal;
+//                 font-weight: 400;
+//                 font-size: 20px;
+//                 line-height: 23px;            
+//                 color: #667197;
+//             }
+//         }
+//         .Cardheadtopright{
+//             display: flex;
+//             gap: 2rem;
+//             justify-content: center;
+//             align-items: center;
+//         }
+//     }
+//     .Cardheadbottom{
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: start;
+//         align-items: center;
+//         gap: 2rem;
+//         flex-wrap: wrap;
+//         .trie{
+//             margin-top: 2rem;
+//         }
+//         .price{
+//             display: flex;
+//             justify-content: center;
+//             align-items: center;
+//             gap: 1rem;
+//             border: 1px solid #2D3962;
+//             border-radius: 8px;
+//             padding: 0.5rem 1rem 0.5rem 1rem;
+//             margin-top: 2rem;
+//             min-width: 150px;
+//             flex-wrap: wrap;
+//             .Pricename{
+
+//             }
+//         }
+//     }
+
+// `
 
 const ContentPage = (props: any) => {
     const { Option } = Select;
@@ -191,65 +211,51 @@ const ContentPage = (props: any) => {
         console.log(`selected ${value}`);
     };
     const his = useHistory()
+    const [showmap, setShowmap] = useState(false)
+    useEffect(() => {
+        setTimeout(() => {
+            // console.log('here');
+            window.dispatchEvent(new Event('resize'))
+        }, 300)
+    }, [])
     return <Content>
-        <ReflexContainer orientation="vertical">
-            {/* <div className="Card"> */}
-            <ReflexElement className="Card">
-                <div className="Cardglob">
-                    {/* <Cardhead>
-                        <div className="Cardheadtop">
-                            <div className="Cardheadtopleft">
-                                <div className="title1">
-                                    Apartments in New York
-                                </div>
-                                <div className="title2">
-                                    1248 results • Jul 14 - 21
-                                </div>
-                            </div>
-                        </div>
-                        <div className="Cardheadbottom">
-                            <div className="trie">
-                                Tiriez par :
-                            </div>
-                            <div className="price">
-                                <i className="bx bx-purchase-tag bx-rotate-90" style={{ color: "#2D3962", fontSize: "20px" }}></i>
-                                <Select defaultValue="Price" style={{ width: 90 }} onChange={handleChange}
-                                    suffixIcon={<i className='bx bx-chevron-down' style={{ color: '#855151', fontSize: "20px" }}  ></i>}
-                                >
-                                </Select>
-                            </div>
-                            <div className="price">
-                                <i className="bx bx-purchase-tag bx-rotate-90" style={{ color: "#2D3962", fontSize: "20px" }}></i>
-                                <Select defaultValue="Distance" style={{ width: 100 }} onChange={handleChange}
-                                    suffixIcon={<i className='bx bx-chevron-down' style={{ color: '#855151', fontSize: "20px" }}  ></i>}
-                                >
-                                </Select>
-                            </div>
-                            <div className="price">
-                                <i className="bx bx-purchase-tag bx-rotate-90" style={{ color: "#2D3962", fontSize: "20px" }}></i>
-                                <Select defaultValue="Review" style={{ width: 90 }} onChange={handleChange}
-                                    suffixIcon={<i className='bx bx-chevron-down' style={{ color: '#855151', fontSize: "20px" }}  ></i>}
-                                >
-                                </Select>
-                            </div>
-                        </div>
-                    </Cardhead> */}
-                    <CardEl />
-                    <CardEl />
-                    <CardEl />
-                    <CardEl />
-                    <CardEl />
-                    <CardEl />
-                </div>
-            </ReflexElement>
-            <ReflexSplitter style={{ height: '75vh' }} />
-            <ReflexElement className="Carte">
-                {/* <div className="Carte"> */}
-                <Map2 />
-                {/* </div> */}
-            </ReflexElement>
-
-        </ReflexContainer>
+        {/* <div> */}
+        <div className="Card" style={showmap ? { animation: 'mymovein .3s', width: '100%' } : {}}>
+            <div className="Cardglob">
+                <CardEl />
+                <CardEl />
+                <CardEl />
+                <CardEl />
+                <CardEl />
+                <CardEl />
+                <CardEl />
+                <CardEl />
+                <CardEl />
+                <CardEl />
+                <CardEl />
+                <CardEl />
+            </div>
+        </div>
+        {
+            !showmap &&
+            <div className="Carte" style={showmap ? { animation: 'mymovein .3s' } : { animation: 'mymoveonmap .3s' }}>
+                <Map2 showmap={showmap} setShowmap={setShowmap} />
+            </div>
+        }
+        {
+            showmap &&
+            <div className="toshowmap">
+                {/* <i class="fi fi-rr-angle-small-right"></i> */}
+                <i className="fi fi-sr-map" onClick={() => {
+                    setShowmap(!showmap)
+                    setTimeout(() => {
+                        // console.log('here');
+                        window.dispatchEvent(new Event('resize'))
+                    }, 300)
+                }
+                }></i>
+            </div>
+        }
     </Content>
 }
 

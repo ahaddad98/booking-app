@@ -8,6 +8,7 @@ import {
   ReflexSplitter,
   ReflexElement
 } from 'react-reflex'
+import { useHistory } from "react-router-dom";
 
 const Content = styled.div`
   display: flex;
@@ -15,6 +16,12 @@ const Content = styled.div`
 `
 
 export default function Dashboard(props: any) {
+  const his = useHistory()
+    useEffect(()=>{
+      if (!localStorage.getItem('token'))
+        his.push('/login')
+      // localStorage.getItem('token')
+    },[])
   return (
     <Content>
       <Headbar />

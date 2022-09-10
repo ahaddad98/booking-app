@@ -9,6 +9,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
 import { useHistory } from "react-router-dom";
+import { Addannounce } from "../../../networkAPI/axiosAPI";
 const Content = styled.div`
     width: 100%;
     padding: 6rem 6rem  0rem 6rem;
@@ -310,6 +311,16 @@ const Part3 = (props: any) => {
         },
     };
     const his = useHistory()
+    const newannounce = async () => {
+        try{
+            const res = await Addannounce('amine', 'amine', 'amine')
+            console.log(res);
+        }
+        catch (e) {
+            console.log(e);
+            
+        }
+    }
     return <Content>
         <div className="contentglob">
             <div className="stepper">
@@ -484,9 +495,13 @@ const Part3 = (props: any) => {
             </div>
         </div>
         <div className="bottons">
-            <Button type="primary" className="cancel" onClick={()=> his.push('/profile/part2')}>Cancel</Button>
-            <Button type="primary" className="next" onClick={()=> his.push('/profile/announce')}>
-                <div>
+            <Button type="primary" className="cancel" onClick={() => his.push('/profile/part2')}>Cancel</Button>
+            <Button type="primary" className="next"
+                onClick={() => {
+                    newannounce()
+                    // his.push('/profile/announce')
+                }}>
+                <div onClick={() => newannounce}>
                     Next
                 </div>
                 <i className="fi fi-rr-arrow-right"></i>

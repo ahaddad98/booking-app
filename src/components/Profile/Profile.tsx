@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Switch, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Announce from "./announce/Announce";
 import BarContent from "./announce/BarContent";
@@ -27,6 +27,12 @@ const Content = styled.div`
 
 const Profile = (props: any) => {
     const [show, setShow] = useState(true)
+    const his = useHistory()
+    useEffect(()=>{
+      if (!localStorage.getItem('token'))
+        his.push('/login')
+      // localStorage.getItem('token')
+    },[])
     const switchRoutes = () => {
         return (
           <Switch>

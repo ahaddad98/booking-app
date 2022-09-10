@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Alert, Button, Checkbox, Form, Input } from 'antd';
 import styled from "styled-components";
+import { tologin, tologinsignup } from "../networkAPI/axiosAPI";
+import { callbackify } from "util";
+import { useHistory } from "react-router-dom";
+// import { Button, Checkbox, Form, Input } from 'antd';
 const Content = styled.div`
     width: 100vw;
     height: 100vh;
     display: flex;
+    @media screen and (max-width: 1100px){
+        flex-direction: column;
+    }
     .leftpart{
         width: 50%;
         padding: 3rem;
+        @media screen and (max-width: 1100px){
+            /* flex-direction: column; */
+            width: 100%;
+            padding: .5rem;
+        }
         .text{
             height: 80%;
             display: flex;
@@ -25,6 +37,10 @@ const Content = styled.div`
         }
     }
     .login{
+        @media screen and (max-width: 1100px){
+            /* flex-direction: column; */
+            width: 100%;
+        }
         width: 50%;
         display: flex;
         justify-content: center;
@@ -36,8 +52,12 @@ const Content = styled.div`
             height: 60px;
             align-items: center;
             width: 539px;
+            @media screen and (max-width: 600px){
+            /* flex-direction: column; */
+                width: 100%;
+            }
             padding: 3rem;
-            height:691px;
+            height: auto;
             .welcomepart{
                 margin-top: 1rem;
                 display: flex;
@@ -64,6 +84,7 @@ const Content = styled.div`
                     color: #8D8D8D;
                     .signup{
                         color: #0089ED;
+                        cursor: pointer;
                     }
                 }
             }
@@ -81,6 +102,7 @@ const Content = styled.div`
                 display: flex;
                 justify-content: center;
                 gap: 2rem;
+                flex-wrap: wrap;
                 .google{
                     width: 298px;
                     height: 55px;
@@ -167,18 +189,77 @@ const Content = styled.div`
 `
 
 const Login = () => {
-    const [email, setEmail] = useState('Demo');
-    const [password, setpassword] = useState('Demo');
+    const [email, setEmail] = useState();
+    const [password, setpassword] = useState();
     const [show, setShow] = useState(false);
-    // let history = useHistory();
-    // useState(() => {
-    //     if (localStorage.getItem('userConnecter') != null || localStorage.getItem('userConnecter') != undefined) {
-    //         // history.push('/');
-    //     }
-    // })
-    // useEffect(() => {
-    //     localStorage.clear();
-    // }, [])
+    const [loggedIn, setLoggedIn] = useState<any>(null)
+    const [singup, setSignup] = useState(false)
+
+    const onFinish = (values: any) => {
+        // console.log('Success:', values);
+        setpassword(values.password)
+        setEmail(values.username)
+        if (!singup) {
+            try {
+
+                logintoapp(values.username, values.password)
+            }
+            catch (e) {
+                // console.log(e);
+            }
+        }
+        else {
+            try {
+
+                logintoappsignup(values.username, values.email, values.password)
+            }
+            catch (e) {
+                // console.log(e);
+            }
+        }
+    };
+    const his = useHistory()
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+    };
+    const logintoapp = async (email: any, password: any) => {
+        // console.log(email, password);
+        try {
+            const res = await tologin(email, password)
+            console.log(res?.data.tokens.access);
+            if (res?.data.tokens.access)
+            {
+                localStorage.setItem('token', res?.data.tokens.access.token)
+                his.push('/')
+            }
+            setLoggedIn(true)
+        }
+        catch (e) {
+            alert('User Not Found try again')
+            // console.log('im here ');
+
+            // setLoggedIn(false)
+        }
+    }
+    const logintoappsignup = async (name: any, email: any, password: any) => {
+        // console.log(email, password);
+        try {
+            const res = await tologinsignup(name, email, password)
+            // console.log('res', res?.data.tokens.access);
+            setSignup(false)
+            setLoggedIn(true)
+        }
+        catch (e) {
+            alert('User Not Found try again')
+            // console.log('im here ');
+
+            // setLoggedIn(false)
+        }
+    }
+    useEffect(()=>{
+        if (localStorage.getItem('token'))
+            his.push('/')
+    },[])
     return <Content>
         <div className="leftpart">
             <div>
@@ -191,72 +272,188 @@ const Login = () => {
                 Louer facilement des articles neufs ou d’occasion sur Applooker   mis en vente par des individuels / entreprises et près de chez vous . Trouvez des bons plans intéressants..
             </div>
         </div>
-        <div className="login">
-            <div className="logincard">
-                <div className="welcomepart">
-                    <div className="welcome">
-                        Welcome to <span className="applocker">APPLOOKER</span>
-                    </div>
-                    <div className="account">
-                        No Account ?
-                        <br />
-                        <span className="signup">Sign up</span>
-                    </div>
-                </div>
-                <div className="signin">
-                    Sign in
-                </div>
-                <div className="auth">
-                    <div className="google">
-                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M24.3762 13.2527C24.3762 12.3174 24.2988 11.6349 24.1312 10.9271H13.2334V15.1485H19.6302C19.5012 16.1975 18.8048 17.7774 17.2572 18.839L17.2355 18.9803L20.6812 21.5963L20.9199 21.6196C23.1123 19.6353 24.3762 16.7157 24.3762 13.2527Z" fill="#4285F4" />
-                            <path d="M13.2326 24.375C16.3664 24.375 18.9973 23.3638 20.919 21.6197L17.2563 18.839C16.2762 19.5089 14.9607 19.9766 13.2326 19.9766C10.1631 19.9766 7.55802 17.9923 6.62936 15.2496L6.49324 15.261L2.91038 17.9784L2.86353 18.106C4.77223 21.8218 8.69286 24.375 13.2326 24.375Z" fill="#34A853" />
-                            <path d="M6.63013 15.2497C6.3851 14.542 6.24329 13.7836 6.24329 13C6.24329 12.2163 6.3851 11.458 6.61724 10.7503L6.61075 10.5995L2.98298 7.8385L2.86428 7.89383C2.07761 9.43579 1.62622 11.1674 1.62622 13C1.62622 14.8326 2.07761 16.5641 2.86428 18.1061L6.63013 15.2497Z" fill="#FBBC05" />
-                            <path d="M13.2326 6.0233C15.4122 6.0233 16.8824 6.94594 17.7207 7.71696L20.9965 4.5825C18.9846 2.74987 16.3665 1.625 13.2326 1.625C8.69289 1.625 4.77224 4.17804 2.86353 7.89384L6.61649 10.7503C7.55805 8.00763 10.1632 6.0233 13.2326 6.0233Z" fill="#EB4335" />
-                        </svg>
-                        <div className="signingoogle">
-                            Sign in with Google
+        {
+            !singup &&
+            <div className="login">
+                <div className="logincard">
+                    <div className="welcomepart">
+                        <div className="welcome">
+                            Welcome to <span className="applocker">APPLOOKER</span>
+                        </div>
+                        <div className="account">
+                            No Account ?
+                            <br />
+                            <span className="signup" onClick={() => setSignup(true)} >Sign up</span>
                         </div>
                     </div>
-                    <div className="facebook">
-                        <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <ellipse cx="14.5" cy="13.34" rx="12.6875" ry="12.6875" fill="url(#paint0_linear_241_1975)" />
-                            <path d="M19.2249 18.3802L19.7885 14.7992H16.2629V12.4763C16.2629 11.4964 16.7544 10.5407 18.3336 10.5407H19.9375V7.49196C19.9375 7.49196 18.4825 7.25 17.0921 7.25C14.1872 7.25 12.2903 8.96548 12.2903 12.0698V14.7992H9.0625V18.3802H12.2903V27.0375C12.9383 27.1367 13.6012 27.1875 14.2766 27.1875C14.9519 27.1875 15.6148 27.1367 16.2629 27.0375V18.3802H19.2249Z" fill="#F7F7F7" />
-                            <defs>
-                                <linearGradient id="paint0_linear_241_1975" x1="14.5" y1="0.652466" x2="14.5" y2="25.9522" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#18ACFE" />
-                                    <stop offset="1" stop-color="#0163E0" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
+                    <div className="signin">
+                        Sign in
                     </div>
-                    <div className="icloud">
-                        <svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M27.1875 14C27.1875 20.762 21.5098 26.25 14.5 26.25C7.49016 26.25 1.8125 20.762 1.8125 14C1.8125 7.23187 7.49016 1.75 14.5 1.75C21.5098 1.75 27.1875 7.23187 27.1875 14Z" fill="#283544" />
-                            <path d="M20.4469 10.9002C20.3777 10.9392 18.7295 11.7622 18.7295 13.5869C18.8072 15.6678 20.8094 16.3976 20.8437 16.3976C20.8094 16.4366 20.5415 17.3917 19.7478 18.393C19.1179 19.2554 18.4188 20.125 17.3572 20.125C16.3474 20.125 15.9849 19.5502 14.8197 19.5502C13.5684 19.5502 13.2143 20.125 12.2563 20.125C11.1947 20.125 10.4438 19.2088 9.77959 18.3545C8.91668 17.2363 8.18324 15.4815 8.15734 13.7965C8.13989 12.9037 8.33015 12.026 8.81311 11.2805C9.49477 10.2398 10.7117 9.53333 12.0407 9.51004C13.059 9.47915 13.9652 10.139 14.5867 10.139C15.1822 10.139 16.2956 9.51004 17.5553 9.51004C18.0991 9.51054 19.5491 9.65792 20.4469 10.9002ZM14.5005 9.33177C14.3193 8.5164 14.8197 7.70104 15.2858 7.18093C15.8813 6.55193 16.8219 6.125 17.633 6.125C17.6848 6.94037 17.3566 7.74003 16.7701 8.32244C16.2438 8.95144 15.3376 9.42496 14.5005 9.33177Z" fill="white" />
-                        </svg>
+                    <div className="auth">
+                        <div className="google">
+                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24.3762 13.2527C24.3762 12.3174 24.2988 11.6349 24.1312 10.9271H13.2334V15.1485H19.6302C19.5012 16.1975 18.8048 17.7774 17.2572 18.839L17.2355 18.9803L20.6812 21.5963L20.9199 21.6196C23.1123 19.6353 24.3762 16.7157 24.3762 13.2527Z" fill="#4285F4" />
+                                <path d="M13.2326 24.375C16.3664 24.375 18.9973 23.3638 20.919 21.6197L17.2563 18.839C16.2762 19.5089 14.9607 19.9766 13.2326 19.9766C10.1631 19.9766 7.55802 17.9923 6.62936 15.2496L6.49324 15.261L2.91038 17.9784L2.86353 18.106C4.77223 21.8218 8.69286 24.375 13.2326 24.375Z" fill="#34A853" />
+                                <path d="M6.63013 15.2497C6.3851 14.542 6.24329 13.7836 6.24329 13C6.24329 12.2163 6.3851 11.458 6.61724 10.7503L6.61075 10.5995L2.98298 7.8385L2.86428 7.89383C2.07761 9.43579 1.62622 11.1674 1.62622 13C1.62622 14.8326 2.07761 16.5641 2.86428 18.1061L6.63013 15.2497Z" fill="#FBBC05" />
+                                <path d="M13.2326 6.0233C15.4122 6.0233 16.8824 6.94594 17.7207 7.71696L20.9965 4.5825C18.9846 2.74987 16.3665 1.625 13.2326 1.625C8.69289 1.625 4.77224 4.17804 2.86353 7.89384L6.61649 10.7503C7.55805 8.00763 10.1632 6.0233 13.2326 6.0233Z" fill="#EB4335" />
+                            </svg>
+                            <div className="signingoogle">
+                                Sign in with Google
+                            </div>
+                        </div>
+                        <div className="facebook">
+                            <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <ellipse cx="14.5" cy="13.34" rx="12.6875" ry="12.6875" fill="url(#paint0_linear_241_1975)" />
+                                <path d="M19.2249 18.3802L19.7885 14.7992H16.2629V12.4763C16.2629 11.4964 16.7544 10.5407 18.3336 10.5407H19.9375V7.49196C19.9375 7.49196 18.4825 7.25 17.0921 7.25C14.1872 7.25 12.2903 8.96548 12.2903 12.0698V14.7992H9.0625V18.3802H12.2903V27.0375C12.9383 27.1367 13.6012 27.1875 14.2766 27.1875C14.9519 27.1875 15.6148 27.1367 16.2629 27.0375V18.3802H19.2249Z" fill="#F7F7F7" />
+                                <defs>
+                                    <linearGradient id="paint0_linear_241_1975" x1="14.5" y1="0.652466" x2="14.5" y2="25.9522" gradientUnits="userSpaceOnUse">
+                                        <stop stop-color="#18ACFE" />
+                                        <stop offset="1" stop-color="#0163E0" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div className="icloud">
+                            <svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M27.1875 14C27.1875 20.762 21.5098 26.25 14.5 26.25C7.49016 26.25 1.8125 20.762 1.8125 14C1.8125 7.23187 7.49016 1.75 14.5 1.75C21.5098 1.75 27.1875 7.23187 27.1875 14Z" fill="#283544" />
+                                <path d="M20.4469 10.9002C20.3777 10.9392 18.7295 11.7622 18.7295 13.5869C18.8072 15.6678 20.8094 16.3976 20.8437 16.3976C20.8094 16.4366 20.5415 17.3917 19.7478 18.393C19.1179 19.2554 18.4188 20.125 17.3572 20.125C16.3474 20.125 15.9849 19.5502 14.8197 19.5502C13.5684 19.5502 13.2143 20.125 12.2563 20.125C11.1947 20.125 10.4438 19.2088 9.77959 18.3545C8.91668 17.2363 8.18324 15.4815 8.15734 13.7965C8.13989 12.9037 8.33015 12.026 8.81311 11.2805C9.49477 10.2398 10.7117 9.53333 12.0407 9.51004C13.059 9.47915 13.9652 10.139 14.5867 10.139C15.1822 10.139 16.2956 9.51004 17.5553 9.51004C18.0991 9.51054 19.5491 9.65792 20.4469 10.9002ZM14.5005 9.33177C14.3193 8.5164 14.8197 7.70104 15.2858 7.18093C15.8813 6.55193 16.8219 6.125 17.633 6.125C17.6848 6.94037 17.3566 7.74003 16.7701 8.32244C16.2438 8.95144 15.3376 9.42496 14.5005 9.33177Z" fill="white" />
+                            </svg>
+                        </div>
                     </div>
+                    <Form
+                        name="basic"
+                        labelCol={{ span: 8 }}
+                        wrapperCol={{ span: 16 }}
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        autoComplete="off"
+                    >
+                        <Form.Item
+                            label=""
+                            name="username"
+                            rules={[{ required: true, message: 'Please input your username!' }]}
+                        >
+                            <div className="username">
+                                <div className="usernametext">
+                                    Enter your username or email address
+                                </div>
+                                <Input placeholder='Username or email address' bordered={false} className='inputstyle' />
+                            </div>
+                        </Form.Item>
+                        <Form.Item
+                            label=""
+                            name="password"
+                            rules={[{ required: true, message: 'Please input your username!' }]}
+                        >
+                            <div className="username" >
+                                <div className="usernametext">
+                                    Enter your Password
+                                </div>
+                                <Input placeholder='Password' type='password' bordered={false} className='inputstyle' />
+                                <div className="forgetpassword">
+                                    Forgot Password
+                                </div>
+                            </div>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button className="mybotton" htmlType="submit">
+                                Sign in
+                            </Button>
+                        </Form.Item>
+                    </Form>
                 </div>
-                <div className="username">
-                    <div className="usernametext">
-                        Enter your username or email address
-                    </div>
-                    <Input placeholder='Username or email address' bordered={false} className='inputstyle' />
-                </div>
-                <div className="username" >
-                    <div className="usernametext">
-                        Enter your Password
-                    </div>
-                    <Input placeholder='Password' type='password' bordered={false} className='inputstyle' />
-                    <div className="forgetpassword">
-                        Forgot Password
-                    </div>
-                </div>
-                <Button className="mybotton" >
-                    Sign in
-                </Button>
             </div>
-        </div>
+        }
+        {
+            singup &&
+            <div className="login">
+                <div className="logincard">
+                    <div className="welcomepart">
+                        <div className="welcome">
+                            Welcome to <span className="applocker">APPLOOKER</span>
+                        </div>
+                        <div className="account">
+                            already have Account ?
+                            <br />
+                            <span className="signup" onClick={() => setSignup(false)} >Sign In</span>
+                        </div>
+                    </div>
+                    <div className="signin">
+                        Sign Up
+                    </div>
+                    <Form
+                        name="basic"
+                        labelCol={{ span: 8 }}
+                        wrapperCol={{ span: 16 }}
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        autoComplete="off"
+                    >
+                        <Form.Item
+                            label=""
+                            name="username"
+                            rules={[{ required: true, message: 'Please input your username!' }]}
+                        >
+                            <div className="username">
+                                <div className="usernametext">
+                                    Enter your username
+                                </div>
+                                <Input placeholder='Username' bordered={false} className='inputstyle' />
+                            </div>
+                        </Form.Item>
+                        <Form.Item
+                            label=""
+                            name="email"
+                            rules={[{ required: true, message: 'Please input your username!' }]}
+                        >
+                            <div className="username">
+                                <div className="usernametext">
+                                    Enter your email
+                                </div>
+                                <Input placeholder='email' bordered={false} className='inputstyle' />
+                            </div>
+                        </Form.Item>
+                        <Form.Item
+                            label=""
+                            name="password"
+                            rules={[{ required: true, message: 'Please input your username!' }]}
+                        >
+                            <div className="username" >
+                                <div className="usernametext">
+                                    Enter your Password
+                                </div>
+                                <Input placeholder='Password' type='password' bordered={false} className='inputstyle' />
+                                <div className="forgetpassword">
+                                    Forgot Password
+                                </div>
+                            </div>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button className="mybotton" htmlType="submit">
+                                Sign in
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                    {/* <div className="username">
+                        <div className="usernametext">
+                            Enter your email address
+                        </div>
+                        <Input placeholder='email address' bordered={false} className='inputstyle' />
+                    </div>
+                    <div className="username">
+                        <div className="usernametext">
+                            Enter your Password
+                        </div>
+                        <Input placeholder='Enter your Password' type='password' bordered={false} className='inputstyle' />
+                    </div>
+                    <Button className="mybotton" >
+                        Sign in */}
+                    {/* </Button> */}
+                </div>
+            </div>
+        }
     </Content>
 }
 

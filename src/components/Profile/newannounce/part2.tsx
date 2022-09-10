@@ -5,6 +5,7 @@ import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { Switch } from 'antd';
 import { useHistory } from "react-router-dom";
+import Counters from "./counters";
 
 const Content = styled.div`
     width: 100%;
@@ -160,6 +161,7 @@ const Content = styled.div`
                 flex-direction: column;
                 gap: 2rem;
                 min-width: 300px;
+                max-width: 500px;
                 .title{
                     font-family: 'Inter';
                     font-style: normal;
@@ -324,7 +326,7 @@ const Part2 = (props: any) => {
                 </div>
             </div>
             <div className="inputs">
-                <div className="inputsleft">
+                {/* <div className="inputsleft">
                     <div className="partinp">
                         <div className="text">
                             Title
@@ -336,13 +338,11 @@ const Part2 = (props: any) => {
                             Description
                         </div>
                         <TextArea rows={4} placeholder="" maxLength={6} style={{ width: "400px" }} />
-                        {/* <Input type="text" bordered={false} placeholder='Location' className='inp' /> */}
                     </div>
                     <div className="partinp">
                         <div className="text">
                             Superficie (m2)
                         </div>
-                        {/* <Input type="text" bordered={false} placeholder='Location' className='inp' /> */}
                         <Input type="text" bordered={false} placeholder='' className='inp' />
                     </div>
                     <div className="partinp">
@@ -352,8 +352,8 @@ const Part2 = (props: any) => {
                         <Switch defaultChecked onChange={onChange1} style={{ width: '20px', marginTop: '1rem' }} />
                     </div>
                 </div>
-                <div className="vl"></div>
-                <div className="inputright">
+                <div className="vl"></div> */}
+                {/* <div className="inputright">
                     <div className="counter">
                         <div className="icon">
                             <svg style={{ width: '40px' }} width="36" height="29" viewBox="0 0 36 29" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -476,7 +476,8 @@ const Part2 = (props: any) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
+                <Counters />
                 <div className="vl"></div>
                 <div className="Equipements">
                     <div className="title">
