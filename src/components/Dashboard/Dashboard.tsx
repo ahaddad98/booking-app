@@ -9,6 +9,8 @@ import {
   ReflexElement
 } from 'react-reflex'
 import { useHistory } from "react-router-dom";
+import { getAnnounces } from "../../networkAPI/axiosAPI";
+import { Spin } from 'antd';
 
 const Content = styled.div`
   display: flex;
@@ -16,16 +18,30 @@ const Content = styled.div`
 `
 
 export default function Dashboard(props: any) {
+  const [data, setData] = useState<any>()
   const his = useHistory()
     useEffect(()=>{
       if (!localStorage.getItem('token'))
         his.push('/login')
       // localStorage.getItem('token')
     },[])
+    const getannounc =async () => {
+        const {data} = await getAnnounces()
+        console.log(data);
+        
+        if (data)
+          setData(data)
+    }
+    useEffect(()=>{
+      getannounc()
+    },[])
   return (
     <Content>
       <Headbar />
-      <ContentPage />
+      {
+        data ?
+        <ContentPage data={data}/> : <Spin style={{marginTop: '5rem',fontSize: '40px'}} size='large'/>
+      }
     </Content>
   );
 }

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 const Counters = (props: any) => {
-    const [chnbr, setChnbr] = useState(0)
-    const [salonnbr, setSalon] = useState(0)
-    const [cuisinenbr, setCuisine] = useState(0)
-    const [douchenbr, setDouche] = useState(0)
-    const [Etage, setEtage] = useState(0)
+    // const [chnbr, setChnbr] = useState(0)
+    // const [salonnbr, setSalon] = useState(0)
+    // const [cuisinenbr, setCuisine] = useState(0)
+    // const [douchenbr, setDouche] = useState(0)
+    // const [Etage, setEtage] = useState(0)
 
     return <div className="inputright">
         <div className="counter">
@@ -20,16 +20,16 @@ const Counters = (props: any) => {
             </div>
             <div className="counterdiv">
                 <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => {
-                    if (chnbr > 0)
-                    setChnbr((prev) => prev - 1)
+                    if (props.chnbr > 0)
+                        props.setChnbr((prev: any) => prev - 1)
                 }
                 }>
                     -
                 </div>
                 <div>
-                    {chnbr}
+                    {props.chnbr}
                 </div>
-                <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => setChnbr((prev) => prev + 1)}>
+                <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => props.setChnbr((prev: any) => prev + 1)}>
                     +
                 </div>
             </div>
@@ -50,15 +50,15 @@ const Counters = (props: any) => {
             </div>
             <div className="counterdiv">
                 <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => {
-                    if (salonnbr > 0)
-                        setSalon((prev) => prev - 1)
+                    if (props.salonnbr > 0)
+                        props.setSalon((prev: any) => prev - 1)
                 }}>
                     -
                 </div>
                 <div>
-                    {salonnbr}
+                    {props.salonnbr}
                 </div>
-                <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => setSalon((prev) => prev + 1)}>
+                <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => props.setSalon((prev: any) => prev + 1)}>
                     +
                 </div >
             </div>
@@ -76,15 +76,16 @@ const Counters = (props: any) => {
             </div>
             <div className="counterdiv">
                 <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => {
-                    if (cuisinenbr > 0)
-                    setCuisine((prev) => prev - 1)}
-            }>
+                    if (props.cuisinenbr > 0)
+                        props.setCuisine((prev: any) => prev - 1)
+                }
+                }>
                     -
                 </div>
                 <div>
-                    {cuisinenbr}
+                    {props.cuisinenbr}
                 </div>
-                <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => setCuisine((prev) => prev + 1)}>
+                <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => props.setCuisine((prev: any) => prev + 1)}>
                     +
                 </div >
             </div>
@@ -108,15 +109,15 @@ const Counters = (props: any) => {
             </div>
             <div className="counterdiv">
                 <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => {
-                    if (douchenbr > 0)
-                        setDouche((prev) => prev - 1)
+                    if (props.douchenbr > 0)
+                        props.setDouche((prev: any) => prev - 1)
                 }}>
                     -
                 </div>
                 <div>
-                    {douchenbr}
+                    {props.douchenbr}
                 </div>
-                <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => setDouche((prev) => prev + 1)}>
+                <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => props.setDouche((prev: any) => prev + 1)}>
                     +
                 </div>
             </div>
@@ -133,14 +134,15 @@ const Counters = (props: any) => {
             </div>
             <div className="counterdiv">
                 <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => {
-                    if (Etage > -1)
-                    setEtage((prev) => prev - 1)}}>
+                    if (props.Etage > -1)
+                        props.setEtage((prev: any) => prev - 1)
+                }}>
                     -
                 </div>
                 <div>
-                    {Etage}
+                    {props.Etage}
                 </div>
-                <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => setEtage((prev) => prev + 1)}>
+                <div style={{ color: '#FF6477', cursor: 'pointer' }} onClick={() => props.setEtage((prev: any) => prev + 1)}>
                     +
                 </div>
             </div>

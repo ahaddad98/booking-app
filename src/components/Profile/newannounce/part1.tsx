@@ -230,6 +230,7 @@ const Part1 = (props: any) => {
     const his = useHistory()
     const onFinish = (values: any) => {
         console.log('Success:', values);
+        his.push('/profile/part2', {values})
     };
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
@@ -238,26 +239,57 @@ const Part1 = (props: any) => {
     const [countryid, setCountryid] = useState('');
     const [st, setSt] = useState([]);
     const [stateid, setStateid] = useState('');
-    const [city, setCity] = useState([]);
+    const [selecycity, setSelectcity] = useState<any>();
     const onChange1 = (checked: boolean) => {
         console.log(`switch to ${checked}`);
+        form.setFieldsValue({ Syndic: checked });
     };
     const [form] = Form.useForm();
-    const onGenderChange = (value: string) => {
+    const ontyperChange = (value: string) => {
+        console.log(value);
+        
         switch (value) {
-            case 'male':
-                form.setFieldsValue({ note: 'Hi, man!' });
+            case 'Apartments':
+                form.setFieldsValue({ Type: 'Apartments' });
                 return;
-            case 'female':
-                form.setFieldsValue({ note: 'Hi, lady!' });
+            case 'Houses':
+                form.setFieldsValue({ Type: 'Houses' });
                 return;
-            case 'other':
-                form.setFieldsValue({ note: 'Hi there!' });
+            case 'Office':
+                form.setFieldsValue({ Type: 'Office' });
+                return;
+            case 'Commercial':
+                form.setFieldsValue({ Type: 'Commercial' });
+                return;
+            case 'land':
+                form.setFieldsValue({ Type: 'land' });
+                return;
+            case 'Villas':
+                form.setFieldsValue({ Type: 'Villas' });
+                return;
+            case 'another':
+                form.setFieldsValue({ Type: 'another' });
         }
+    };
+    const onservChange = (value: string) => {
+        switch (value) {
+            case 'all':
+                form.setFieldsValue({ TypeService: 'all' });
+                return;
+            case 'Location':
+                form.setFieldsValue({ TypeService: 'Location' });
+                return;
+            case 'Vent':
+                form.setFieldsValue({ TypeService: 'Vent' });
+        }
+    };
+    const onsyndicChange = (value: string) => {
+        
     };
     return <Content>
         <Form
             name="basic"
+            form={form}
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             initialValues={{ remember: true }}
@@ -385,12 +417,13 @@ const Part1 = (props: any) => {
                             label=""
                             name="Type"
                             rules={[{ required: true, message: 'Please input Type d’immobilier!' }]}
+                            className="partinp"
                         >
-                            <div className="partinp">
+                            {/* <div className="partinp"> */}
                                 <div className="text">
                                     Type d’immobilier
                                 </div>
-                                <Select bordered={false} placeholder='Type d’immobilier' className='inp'>
+                                <Select defaultValue={'Apartments'} bordered={false} placeholder='Type d’immobilier' className='inp' onChange={ontyperChange}>
                                     <Select.Option value="Apartments">Apartments</Select.Option>
                                     <Select.Option value="Houses">Houses</Select.Option>
                                     <Select.Option value="Villas">Villas</Select.Option>
@@ -399,7 +432,7 @@ const Part1 = (props: any) => {
                                     <Select.Option value="land">land & farms</Select.Option>
                                     <Select.Option value="another">another</Select.Option>
                                 </Select>
-                            </div>
+                            {/* </div> */}
                         </Form.Item>
                         <Form.Item
                             label=""
@@ -410,7 +443,7 @@ const Part1 = (props: any) => {
                                 <div className="text">
                                     Type du service
                                 </div>
-                                <Select bordered={false} placeholder='Type du service' className='inp'>
+                                <Select bordered={false} placeholder='Type du service' className='inp' onChange={onservChange}>
                                     <Select.Option value="all">all</Select.Option>
                                     <Select.Option value="Location">Location</Select.Option>
                                     <Select.Option value="Vent">Vent</Select.Option>
@@ -449,7 +482,7 @@ const Part1 = (props: any) => {
                 <Button type="primary" className="cancel" onClick={() => {
                 }}>Cancel</Button>
                 <Form.Item>
-                    <Button type="primary" className="next" htmlType="submit" /*onClick={() => his.push('/profile/part2')}*/>
+                    <Button type="primary" className="next" htmlType="submit">
                         <div>
                             Next
                         </div>

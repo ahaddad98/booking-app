@@ -1,107 +1,76 @@
-import React, { useState, useEffect } from "react";
-import { Container } from "react-bootstrap";
+import React, { useState } from "react";
+import { render } from "react-dom";
+import "antd/dist/antd.css";
+import axios from "axios";
+// import "./style.css";
 
-function Countrystatecity() {
-    const [country, setCountry]= useState([]);
-    const [countryid, setCountryid]=useState('');
-    const [st, setSt]= useState([]);
-    const [stateid, setStateid]= useState('');
-    const [city, setCity]= useState([]);
+import { Upload, Progress } from "antd";
 
-     useEffect( ()=>{
-         const getcountry= async()=>{
-             const rescountry= await fetch("http://localhost/devopsdeveloper/country/");
-             const rescon= await rescountry.json();
-             setCountry(await rescon);
-         }
-         getcountry();
-     },[]);
+ const Uplodertest = () => {
+  const [defaultFileList, setDefaultFileList] = useState([]);
+  const [progress, setProgress] = useState(0);
 
-     const handlecountry=(event)=>{
-         const getcountryid= event.target.value;
-         setCountryid(getcountryid);
-     }
+  const uploadImage = async options => {
+    const { onSuccess, onError, file, onProgress } = options;
 
-     useEffect( ()=>{
-     const getstate= async()=>{
-         const resstate= await fetch(`http://localhost/devopsdeveloper/state/getstate/${countryid}`);
-         const resst= await resstate.json();
-         setSt(await resst);
-     }
-    getstate();
-     },[countryid]);
+    const fmData = new FormData();
+    const config = {
+      headers: { "content-type": "multipart/form-data" },
+      onUploadProgress: event => {
+        const percent = Math.floor((event.loaded / event.total) * 100);
+        setProgress(percent);
+        if (percent === 100) {
+          setTimeout(() => setProgress(0), 1000);
+        }
+        onProgress({ percent: (event.loaded / event.total) * 100 });
+      }
+    };
+    fmData.append("image", file);
+    try {
+      const res = await axios.post(
+        "https://jsonplaceholder.typicode.com/posts",
+        fmData,
+        config
+      );
 
-     const handlestate=(event)=>{
-        const getstateid= event.target.value;
-        setStateid(getstateid);
+      onSuccess("Ok");
+      console.log("server res: ", res);
+    } catch (err) {
+      console.log("Eroor: ", err);
+      const error = new Error("Some error");
+      onError({ err });
     }
+  };
 
-useEffect( ()=>{
-    const getcity= async()=>{   
-        const rescity= await fetch(`http://localhost/devopsdeveloper/city/getcity/${stateid}`);
-        const rcity= await rescity.json();
-        setCity(await rcity);
-    }
-getcity();
-},[stateid]);
-         
-   return (
-    <React.Fragment>
-      <Container className="content">
-        <div className="row">
-          <div className="col-sm-12">
-            <h2 className="mt-4 mb-4 fw-bold">
-              Select Country, State and City ReactJs{" "}
-            </h2>
+  const handleOnChange = ({ file, fileList, event }) => {
+    // console.log(file, fileList, event);
+    //Using Hooks to update the state to the current filelist
+    setDefaultFileList(fileList);
+    //filelist - [{uid: "-1",url:'Some url to image'}]
+  };
 
-            <form className="row g-3">
-
-               <div className="col-md-3">
-                <label  className="form-label">Country </label>
-                <select name="country" className="form-control p-2"  onChange={(e)=>handlecountry(e)} >
-                  <option value="">--Select Country--</option>
-                  {
-                 country.map( (getcon, index)=>(
-                  <option key={index} value={getcon.country_id}>{getcon.country_name } </option>
-                 ))
-                  }
-                </select>
-              </div>
-
-              <div className="col-md-3">
-                <label  className="form-label">State</label>
-                <select className="form-select" name="state"  onChange={(e)=>handlestate(e)}>
-                  <option value="">--Select State--</option>
-                  {
-                    st.map( (getst, index)=>(
-                     <option key={index} value={getst.state_id}>{getst.state_name } </option>
-                    )) 
-                  }                  
-                </select>
-              </div>
-
-              <div className="col-md-3">
-                <label  className="form-label">City</label>
-                <select className="form-select" name="city">
-                  <option value="">--Select City--</option>
-                  {
-                      city.map( (gcity, index)=>(
-                      <option key={index} value={gcity.city_id}> { gcity.city_name} </option>
-                      ))
-                  }                 
-                </select>
-              </div>
-              
-              <div className="col-md-3">                
-                <button type="button" className="btn btn-primary mt-4">Submit</button>
-              </div>
-            
-            </form>
-          </div>
-        </div>
-      </Container>
-    </React.Fragment>
+  return (
+    <div class="container">
+      <Upload
+        accept="image/*"
+        customRequest={uploadImage}
+        onChange={handleOnChange}
+        listType="picture-card"
+        defaultFileList={defaultFileList}
+        className="image-upload-grid"
+        // onProgress={({ percent }) => {
+        //   console.log("progre...", percent);
+        //   if (percent === 100) {
+        //     setTimeout(() => setProgress(0), 1000);
+        //   }
+        //   return setProgress(Math.floor(percent));
+        // }}
+      >
+        {defaultFileList.length >= 1 ? null : <div>Upload Button</div>}
+      </Upload>
+      {progress > 0 ? <Progress percent={progress} /> : null}
+    </div>
   );
-}
+};
 
-export default Countrystatecity;
+export default Uplodertest

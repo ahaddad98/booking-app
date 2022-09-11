@@ -1,11 +1,13 @@
 import { Button, Input } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { Switch } from 'antd';
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Counters from "./counters";
+import type { CheckboxValueType } from 'antd/es/checkbox/Group';
+import hi from "date-fns/esm/locale/hi/index.js";
 
 const Content = styled.div`
     width: 100%;
@@ -176,16 +178,37 @@ const Content = styled.div`
                     flex-wrap: wrap;
                     justify-content: center;
                     align-items: center;
-                    .checkelement{
-                        white-space: nowrap;
+                    .ant-checkbox-group {
+                        box-sizing: border-box;
+                        margin: 0;
+                        padding: 0;
+                        color: rgba(0,0,0,.85);
+                        font-size: 14px;
+                        font-variant: tabular-nums;
+                        line-height: 1.5715;
+                        list-style: none;
+                        font-feature-settings: "tnum";
+                        display: inline-block;
+                        display: flex;
+                        /* max-width: 500px;
+                        min-width: 300px; */
+                        flex-wrap: wrap;
+                        gap: 1rem;
+                    }
+                    .ant-checkbox+span {
+                        padding-right: 8px;
+                        padding-left: 8px;
                         font-family: 'Inter';
                         font-style: normal;
                         font-weight: 400;
                         font-size: 14.9167px;
                         line-height: 24px;
                         color: #2D3962;
+                    }
+                    .checkelement{
                         min-width: 145px;
                         margin-top: 1.2rem;
+                        white-space: nowrap;
                     }
                 }
                 .add{
@@ -248,14 +271,50 @@ const Content = styled.div`
 `
 
 const Part2 = (props: any) => {
-    const onChange = (e: CheckboxChangeEvent) => {
-        console.log(`checked = ${e.target.checked}`);
-    };
-    const onChange1 = (checked: boolean) => {
-        console.log(`switch to ${checked}`);
+    const [chnbr, setChnbr] = useState<any>(0)
+    const [salonnbr, setSalon] = useState<any>(0)
+    const [cuisinenbr, setCuisine] = useState<any>(0)
+    const [douchenbr, setDouche] = useState<any>(0)
+    const [Etage, setEtage] = useState<any>(0)
+    const [checkedValues, SetCheckedValues] = useState<any>()
+    const onChange22 = (checkedValues: CheckboxValueType[]) => {
+        // console.log('checked = ', checkedValues);
+        SetCheckedValues(checkedValues)
     };
     const his = useHistory()
     const { TextArea } = Input;
+    const location = useLocation<any>()
+    const options = [
+        { label: 'Parking', value: 'Parking' },
+        { label: 'Wifi', value: 'Wifi' },
+        { label: 'Garage', value: 'Garage' },
+        { label: 'Micro ondes', value: 'Micro ondes' },
+        { label: 'Jardin', value: 'Jardin' },
+        { label: 'Piscine', value: 'Piscine' },
+        { label: 'Rerigerateur', value: 'Rerigerateur' },
+        { label: 'Terasse', value: 'Terasse' },
+        { label: 'Chauffeau', value: 'Chauffeau' },
+        { label: 'Fer a repasser', value: 'Fer a repasser' },
+        { label: 'Climatiseur', value: 'Climatiseur' },
+        { label: 'Balcon', value: 'Balcon' },
+        { label: 'Internet', value: 'Internet' },
+        { label: 'Consierge', value: 'Consierge' },
+        { label: 'Television', value: 'Television' },
+        { label: 'Ascenseur', value: 'Ascenseur' },
+        { label: 'Machine a laver', value: 'Machine a laver' },
+        { label: 'Securite', value: 'Securite' },
+    ];
+    const  handleclick = () => {
+        his.push('/profile/part3', {
+            values: location.state.values,
+            checkedValues: checkedValues,
+            chnbr:chnbr,
+            salonnbr: salonnbr,
+            cuisinenbr: cuisinenbr,
+            douchenbr: douchenbr,
+            Etage: Etage,
+        })
+    }
     return <Content>
         <div className="contentglob">
             <div className="stepper">
@@ -326,184 +385,14 @@ const Part2 = (props: any) => {
                 </div>
             </div>
             <div className="inputs">
-                {/* <div className="inputsleft">
-                    <div className="partinp">
-                        <div className="text">
-                            Title
-                        </div>
-                        <Input type="text" bordered={false} placeholder='' className='inp' width='248px' />
-                    </div>
-                    <div className="partinp">
-                        <div className="text">
-                            Description
-                        </div>
-                        <TextArea rows={4} placeholder="" maxLength={6} style={{ width: "400px" }} />
-                    </div>
-                    <div className="partinp">
-                        <div className="text">
-                            Superficie (m2)
-                        </div>
-                        <Input type="text" bordered={false} placeholder='' className='inp' />
-                    </div>
-                    <div className="partinp">
-                        <div className="text">
-                            Disponibilite du Syndic
-                        </div>
-                        <Switch defaultChecked onChange={onChange1} style={{ width: '20px', marginTop: '1rem' }} />
-                    </div>
-                </div>
-                <div className="vl"></div> */}
-                {/* <div className="inputright">
-                    <div className="counter">
-                        <div className="icon">
-                            <svg style={{ width: '40px' }} width="36" height="29" viewBox="0 0 36 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M32.1405 12.1089C31.33 11.7531 30.4544 11.5698 29.5693 11.5706H6.42809C5.54303 11.5697 4.66744 11.7528 3.85685 12.1081C2.7112 12.6091 1.73632 13.433 1.05138 14.4791C0.366429 15.5253 0.00107948 16.7483 -1.52588e-05 17.9987V26.998C-1.52588e-05 27.339 0.135434 27.666 0.376534 27.9071C0.617635 28.1482 0.944638 28.2836 1.28561 28.2836C1.62657 28.2836 1.95358 28.1482 2.19468 27.9071C2.43578 27.666 2.57123 27.339 2.57123 26.998V26.3552C2.57331 26.1854 2.6417 26.0231 2.76181 25.903C2.88191 25.7829 3.0442 25.7145 3.21404 25.7124H32.7833C32.9531 25.7145 33.1154 25.7829 33.2355 25.903C33.3556 26.0231 33.424 26.1854 33.4261 26.3552V26.998C33.4261 27.339 33.5616 27.666 33.8027 27.9071C34.0438 28.1482 34.3708 28.2836 34.7117 28.2836C35.0527 28.2836 35.3797 28.1482 35.6208 27.9071C35.8619 27.666 35.9974 27.339 35.9974 26.998V17.9987C35.9961 16.7484 35.6307 15.5256 34.9458 14.4796C34.2608 13.4337 33.286 12.6099 32.1405 12.1089Z" fill="#667197" />
-                                <path d="M27.6408 0H8.35654C7.16315 0 6.01864 0.474071 5.17479 1.31792C4.33094 2.16178 3.85686 3.30628 3.85686 4.49967V10.285C3.8569 10.3348 3.86851 10.3839 3.89078 10.4284C3.91305 10.473 3.94537 10.5118 3.98519 10.5417C4.025 10.5716 4.07123 10.5919 4.12022 10.6009C4.1692 10.6098 4.21961 10.6073 4.26746 10.5935C4.9693 10.3882 5.69687 10.2843 6.42811 10.285H6.76799C6.84732 10.2855 6.92404 10.2566 6.98337 10.204C7.04271 10.1513 7.08047 10.0785 7.0894 9.99972C7.15952 9.37152 7.45858 8.79117 7.92947 8.36949C8.40035 7.94782 9.01006 7.71437 9.64216 7.71372H14.1418C14.7743 7.71377 15.3846 7.94696 15.856 8.36869C16.3274 8.79042 16.6268 9.37111 16.697 9.99972C16.7059 10.0785 16.7437 10.1513 16.803 10.204C16.8624 10.2566 16.9391 10.2855 17.0184 10.285H18.9838C19.0631 10.2855 19.1398 10.2566 19.1992 10.204C19.2585 10.1513 19.2963 10.0785 19.3052 9.99972C19.3753 9.37194 19.674 8.79192 20.1444 8.3703C20.6148 7.94868 21.2239 7.71496 21.8556 7.71372H26.3552C26.9877 7.71377 27.598 7.94696 28.0694 8.36869C28.5408 8.79042 28.8402 9.37111 28.9104 9.99972C28.9193 10.0785 28.9571 10.1513 29.0164 10.204C29.0758 10.2566 29.1525 10.2855 29.2318 10.285H29.5693C30.3006 10.2846 31.0281 10.3888 31.7299 10.5943C31.7778 10.6082 31.8283 10.6107 31.8774 10.6016C31.9264 10.5926 31.9727 10.5722 32.0125 10.5422C32.0524 10.5122 32.0847 10.4734 32.1069 10.4287C32.1291 10.384 32.1406 10.3348 32.1405 10.285V4.49967C32.1405 3.30628 31.6664 2.16178 30.8226 1.31792C29.9787 0.474071 28.8342 0 27.6408 0Z" fill="#667197" />
-                            </svg>
-                            <div className="chambre">
-                                Chambres
-                            </div>
-                        </div>
-                        <div className="counterdiv">
-                            <div style={{ color: '#FF6477' }}>
-                                -
-                            </div>
-                            <div>
-                                1
-                            </div>
-                            <div style={{ color: '#FF6477' }}>
-                                +
-                            </div>
-                        </div>
-                    </div>
-                    <div className="counter">
-                        <div className="icon">
-                            <svg style={{ width: '40px' }} width="36" height="29" viewBox="0 0 35 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M25.2849 24.6284H7.8679V30.8526C7.8679 30.8833 7.86659 30.9138 7.86554 30.9443H25.2872C25.2862 30.9138 25.2849 30.8833 25.2849 30.8526V24.6284Z" fill="#667197" />
-                                <path d="M1.00697 8.81606H19.3926C19.9487 8.81606 20.3995 8.36525 20.3995 7.80909V1.00697C20.3995 0.450812 19.9487 0 19.3926 0H1.00697C0.450812 0 0 0.450812 0 1.00697V7.80909C0 8.36525 0.450812 8.81606 1.00697 8.81606Z" fill="#667197" />
-                                <path d="M30.294 15.1313V18.3125H30.8664V10.1411H33.4271C33.7358 10.1411 34.0274 9.99954 34.2184 9.75705C34.4094 9.51431 34.4784 9.19748 34.4059 8.89746L32.8659 2.53223C32.7566 2.08037 32.3523 1.76196 31.8873 1.76196H27.8316C27.3669 1.76196 26.9623 2.08037 26.853 2.53223L25.313 8.89746C25.2405 9.19748 25.3096 9.51431 25.5006 9.75705C25.6915 9.99954 25.9832 10.1411 26.2918 10.1411H28.8525V12.5573C29.7165 13.0895 30.294 14.0442 30.294 15.1313Z" fill="#667197" />
-                                <path d="M25.2849 22.614V21.0895C25.2849 19.5582 26.5307 18.3124 28.062 18.3124H28.2798V15.1312C28.2798 14.5759 27.8282 14.1243 27.2728 14.1243H5.87971C5.3246 14.1243 4.87274 14.5759 4.87274 15.1312V18.3124H5.09053C6.62187 18.3124 7.86765 19.5582 7.86765 21.0895V22.614H25.2849Z" fill="#667197" />
-                                <path d="M5.85376 21.0896C5.85376 20.669 5.51144 20.3264 5.09058 20.3264H1.4959C1.07504 20.3264 0.732727 20.669 0.732727 21.0896V30.8525C0.732727 31.2733 1.07504 31.6156 1.4959 31.6156H5.09058C5.51144 31.6156 5.85376 31.2733 5.85376 30.8525V21.0896Z" fill="#667197" />
-                                <path d="M32.4201 30.8525V21.0896C32.4201 20.669 32.0775 20.3264 31.6567 20.3264H28.062C27.6411 20.3264 27.2988 20.669 27.2988 21.0896V30.8525C27.2988 31.2733 27.6411 31.6156 28.062 31.6156H31.6567C32.0775 31.6156 32.4201 31.2733 32.4201 30.8525Z" fill="#667197" />
-                            </svg>
-                            <div className="chambre">
-                                Salon
-                            </div>
-                        </div>
-                        <div className="counterdiv">
-                            <div style={{ color: '#FF6477' }}>
-                                -
-                            </div>
-                            <div>
-                                1
-                            </div>
-                            <div style={{ color: '#FF6477' }}>
-                                +
-                            </div >
-                        </div>
-                    </div>
-                    <div className="counter">
-                        <div className="icon">
-                            <svg style={{ width: '40px' }} width="36" height="29" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M16.8077 10.149L20.5137 13.5043L21.8671 12.0089C23.3788 12.3805 25.0528 11.9884 26.2536 10.7875C27.1075 9.93364 28.0184 8.34551 28.5204 6.83584C29.198 4.79759 29.0752 3.23935 28.1653 2.32956C27.2556 1.41966 25.6973 1.29684 23.659 1.97448C22.1493 2.4764 20.5612 3.38736 19.7074 4.2413C18.5305 5.41804 18.1059 7.08311 18.4862 8.62887L16.8077 10.149Z" fill="#667197" />
-                                <path d="M10.3598 15.988L1.68716 23.8422C0.963939 24.4824 0.531985 25.4028 0.50175 26.3684C0.439758 28.3506 2.0324 29.9999 4.02289 29.9999C5.00094 29.9999 5.97577 29.5832 6.65756 28.813L14.3133 20.3547L10.3598 15.988Z" fill="#667197" />
-                                <path d="M30.4984 26.3684C30.4682 25.4028 30.0363 24.4824 29.313 23.8423C28.429 23.0419 12.9852 9.05888 12.5717 8.68452C12.9795 7.20801 12.6054 5.55895 11.4471 4.40066C11.0543 4.00791 7.71376 0.667296 7.3039 0.257432C6.96065 -0.0858107 6.40419 -0.0858107 6.06094 0.257432C5.7177 0.600616 5.7177 1.15714 6.06094 1.50038L8.42257 3.86207L7.01386 5.27078L4.65217 2.90904C4.30899 2.56574 3.75252 2.56585 3.40922 2.90904C3.06598 3.25222 3.06598 3.80875 3.40922 4.15199L5.77085 6.51362L4.36213 7.92233L2.00051 5.5607C1.65732 5.21752 1.1008 5.21752 0.757554 5.5607C0.414311 5.90389 0.414311 6.46041 0.757554 6.80366C4.61696 10.6631 0.927124 6.97317 4.90073 10.9469C6.02989 12.0761 7.66343 12.4917 9.18458 12.0715C33.8072 39.2666 15.511 19.0587 24.3424 28.8127C24.9825 29.536 25.903 29.968 26.8686 29.9982C28.8963 30.0622 30.5619 28.3967 30.4984 26.3684Z" fill="#667197" />
-                            </svg>
-                            <div className="chambre">
-                                Cuisine
-                            </div>
-                        </div>
-                        <div className="counterdiv">
-                            <div style={{ color: '#FF6477' }}>
-                                -
-                            </div>
-                            <div>
-                                1
-                            </div>
-                            <div style={{ color: '#FF6477' }}>
-                                +
-                            </div >
-                        </div>
-                    </div>
-                    <div className="counter">
-                        <div className="icon">
-                            <svg style={{ width: '40px' }} width="36" height="29" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M33.75 17.874H2.25C1.00948 17.874 0 18.8835 0 20.124C0 21.3645 1.00948 22.374 2.25 22.374H33.75C34.9905 22.374 36 21.3645 36 20.124C36 18.8835 34.9905 17.874 33.75 17.874Z" fill="#667197" />
-                                <path d="M33.957 20.9026C33.5505 20.7887 33.1425 21.0196 33.03 21.4187L32.9715 21.6242H3.02997L2.96999 21.4187C2.85749 21.0196 2.44651 20.7917 2.04299 20.9026C1.64397 21.0166 1.41447 21.4322 1.52851 21.8296L3.59549 29.0656C4.23597 31.3081 6.31201 32.8741 8.64301 32.8741H27.3555C29.688 32.8741 31.7625 31.3081 32.403 29.0656L34.47 21.8296C34.5855 21.4321 34.3545 21.0166 33.957 20.9026ZM8.64449 29.8741C7.64549 29.8741 6.75449 29.2036 6.48147 28.2421L5.50799 24.8311C5.39401 24.432 5.62499 24.018 6.02247 23.9041C6.42444 23.7901 6.83697 24.0225 6.94947 24.4201L7.92294 27.8311C8.01597 28.1506 8.31142 28.3756 8.64442 28.3756C9.05842 28.3756 9.39444 28.7116 9.39444 29.1256C9.39451 29.5396 9.05849 29.8741 8.64449 29.8741Z" fill="#667197" />
-                                <path d="M10.0845 31.4519C9.71401 31.2704 9.26549 31.4159 9.07797 31.7879L7.57799 34.7879C7.39349 35.1584 7.54347 35.6084 7.91401 35.7944C8.02349 35.8484 8.13754 35.874 8.25004 35.874C8.52454 35.874 8.78856 35.7224 8.92054 35.4585L10.4205 32.4585C10.605 32.0878 10.455 31.6378 10.0845 31.4519Z" fill="#667197" />
-                                <path d="M28.422 34.7892L26.922 31.7892C26.7361 31.4172 26.2861 31.2687 25.9155 31.4532C25.545 31.6392 25.395 32.0892 25.5795 32.4597L27.0795 35.4597C27.2115 35.7222 27.4755 35.8737 27.75 35.8737C27.8625 35.8737 27.9765 35.8482 28.086 35.7958C28.4565 35.6097 28.6065 35.1597 28.422 34.7892Z" fill="#667197" />
-                                <path d="M30.1275 0.00732422C29.3625 0.00732422 28.6425 0.305801 28.101 0.847348L25.7205 3.22785C25.428 3.52035 25.428 3.99587 25.7205 4.28837C26.013 4.58087 26.4886 4.58087 26.7811 4.28837L29.1615 1.90935C29.418 1.65137 29.7615 1.50885 30.135 1.50885C30.8879 1.50885 31.4999 2.12085 31.4999 2.87382V18.6238C31.4999 19.0378 31.836 19.3738 32.25 19.3738C32.664 19.3738 33 19.0378 33.0015 18.6223V2.87235C33.0015 1.29285 31.7175 0.00732422 30.1275 0.00732422Z" fill="#667197" />
-                                <path d="M27.531 3.9782L26.031 2.47823C25.86 2.30723 25.6215 2.2277 25.3785 2.2682L21.6285 2.88323C21.3526 2.92823 21.126 3.1232 21.0376 3.38723C20.949 3.65125 21.0165 3.94523 21.2116 4.1447L25.7116 8.7797C25.8541 8.9282 26.0506 9.00773 26.2486 9.00773C26.3191 9.00773 26.3911 8.99725 26.4615 8.97623C26.7285 8.89825 26.931 8.67775 26.985 8.40473L27.735 4.65475C27.7845 4.4102 27.708 4.15666 27.531 3.9782Z" fill="#667197" />
-                                <path d="M17.7795 9.09437C17.487 8.80188 17.0115 8.80188 16.719 9.09437L15.219 10.5944C14.9265 10.8869 14.9265 11.3624 15.219 11.6549C15.366 11.8004 15.558 11.8739 15.75 11.8739C15.942 11.8739 16.134 11.8004 16.2795 11.6549L17.7795 10.1549C18.072 9.86233 18.072 9.38687 17.7795 9.09437Z" fill="#667197" />
-                                <path d="M20.7795 12.0944C20.487 11.8019 20.0115 11.8019 19.719 12.0944L18.219 13.5944C17.9265 13.8869 17.9265 14.3624 18.219 14.6549C18.366 14.8004 18.558 14.8739 18.75 14.8739C18.942 14.8739 19.134 14.8004 19.2795 14.6549L20.7795 13.1549C21.072 12.8624 21.072 12.3869 20.7795 12.0944Z" fill="#667197" />
-                                <path d="M22.2795 7.59437C21.987 7.30188 21.5115 7.30188 21.219 7.59437L19.719 9.09435C19.4265 9.38685 19.4265 9.86238 19.719 10.1549C19.866 10.3004 20.058 10.3739 20.25 10.3739C20.442 10.3739 20.634 10.3004 20.7795 10.1549L22.2795 8.6549C22.572 8.3624 22.572 7.88687 22.2795 7.59437Z" fill="#667197" />
-                            </svg>
-                            <div className="chambre">
-                                Salle de bain
-                            </div>
-                        </div>
-                        <div className="counterdiv">
-                            <div style={{ color: '#FF6477' }}>
-                                -
-                            </div>
-                            <div>
-                                1
-                            </div>
-                            <div style={{ color: '#FF6477' }}>
-                                +
-                            </div>
-                        </div>
-                    </div>
-                    <div className="counter">
-                        <div className="icon">
-                            <svg style={{ width: '40px' }} width="36" height="29" viewBox="0 0 35 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M33.2216 5.4834H26.8278C25.8454 5.4834 25.0493 6.27893 25.0493 7.2616V11.8777H20.4333C19.4507 11.8777 18.6546 12.6729 18.6546 13.6557V18.272H14.0385C13.0558 18.272 12.26 19.0684 12.26 20.0501V24.8888H7.42239C6.95035 24.8888 6.49801 25.0759 6.16463 25.409C5.83096 25.7423 5.64382 26.1967 5.64382 26.6668L5.6444 30.3872C5.6444 31.3708 6.4408 32.1663 7.42289 32.1663H33.2216C34.2042 32.1663 35 31.3708 35 30.3872V7.26153C35.0001 6.27893 34.2042 5.4834 33.2216 5.4834Z" fill="#667197" />
-                                <path d="M23.8621 0.35811C23.4044 -0.111114 22.6547 -0.120132 22.1857 0.336395C14.5801 7.74529 7.34455 14.9817 0.347445 21.9781C0.124809 22.2008 0 22.5032 0 22.8171V30.9311C0 31.5851 0.530619 32.117 1.18561 32.117C1.83996 32.117 2.37152 31.5853 2.37152 30.9311V23.3078C9.25506 16.4239 16.3717 9.31096 23.84 2.03459C24.3087 1.57814 24.3183 0.827046 23.8621 0.35811Z" fill="#667197" />
-                            </svg>
-                            <div className="chambre">
-                                Etage
-                            </div>
-                        </div>
-                        <div className="counterdiv">
-                            <div style={{ color: '#FF6477' }}>
-                                -
-                            </div>
-                            <div>
-                                1
-                            </div>
-                            <div style={{ color: '#FF6477' }}>
-                                +
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
-                <Counters />
+                <Counters chnbr={chnbr} setChnbr={setChnbr} salonnbr={salonnbr} setSalon={setSalon} cuisinenbr={cuisinenbr} setCuisine={setCuisine} douchenbr={douchenbr} setDouche={setDouche} Etage={Etage} setEtage={setEtage}/>
                 <div className="vl"></div>
                 <div className="Equipements">
                     <div className="title">
                         Equipements supplementaires
                     </div>
                     <div className="check">
-                        <Checkbox onChange={onChange} className='checkelement'>Parking</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Wifi</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Garage</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Micro ondes</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Jardin</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Piscine</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Rerigerateur</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Terasse</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Chauffeau</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Fer a repasser</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Climatiseur</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Balcon</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Internet</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Consierge</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Television</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Securite</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Playstation</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Ascenseur</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Lave vaisselle</Checkbox>
-                        <Checkbox onChange={onChange} className='checkelement'>Machine a laver</Checkbox>
+                        <Checkbox.Group options={options}  onChange={onChange22} />
                     </div>
                     <div className="add">
                         <div style={{ color: '#FF6477' }}>
@@ -518,7 +407,7 @@ const Part2 = (props: any) => {
         </div>
         <div className="bottons">
             <Button type="primary" className="cancel" onClick={() => his.push('/profile/newannouce')}>Cancel</Button>
-            <Button type="primary" className="next" onClick={() => his.push('/profile/part3')}>
+            <Button type="primary" className="next" onClick={handleclick}>
                 <div>
                     Next
                 </div>
