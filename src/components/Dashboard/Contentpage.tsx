@@ -1,5 +1,5 @@
 import { Button, Select } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Map2 from "./Carte";
 import { Rate } from 'antd';
@@ -17,6 +17,7 @@ import {
     ReflexElement
 } from 'react-reflex'
 import CardEl from "./Card";
+import { getAnnounces } from "../../networkAPI/axiosAPI";
 const Content = styled.div`
     width: 100%;
     display: flex;
@@ -212,28 +213,46 @@ const ContentPage = (props: any) => {
     };
     const his = useHistory()
     const [showmap, setShowmap] = useState(false)
+    const componentRef = useRef<any>();
+    const effectRun = useRef(false);
+    const [mat, setMat] = useState<any>()
+    const getannounc =async () => {
+        const {data} = await getAnnounces()
+        // console.log(data);
+        // if (data)
+            // props.setData((prev: any) => [...prev, ...data.results])
+    }
+    const handleScroll = (event: any) => {
+        if (
+            componentRef.current.offsetHeight + componentRef.current.scrollTop + 1 >=
+            componentRef.current.scrollHeight
+        )
+            getannounc()
+    };
     useEffect(() => {
+        // console.log(props.data.results);
+        if (effectRun.current == false) {
+            getannounc()
+            componentRef.current.addEventListener("scroll", handleScroll);
+            return () => {
+                effectRun.current = true;
+                componentRef.current.removeEventListener("scroll", handleScroll);
+            };
+        }
         setTimeout(() => {
-            // console.log('here');
             window.dispatchEvent(new Event('resize'))
         }, 300)
     }, [])
     return <Content>
         {/* <div> */}
-        <div className="Card" style={showmap ? { animation: 'mymovein .3s', width: '100%' } : {}}>
+        <div className="Card" style={showmap ? { animation: 'mymovein .3s', width: '100%' } : {}}  ref={componentRef}>
             <div className="Cardglob">
-                <CardEl />
-                <CardEl />
-                <CardEl />
-                <CardEl />
-                <CardEl />
-                <CardEl />
-                <CardEl />
-                <CardEl />
-                <CardEl />
-                <CardEl />
-                <CardEl />
-                <CardEl />
+                {
+                        props.data.results && 
+                    props.data.results.map((stat: any, key: any) => {
+                        // return <CardEl data={stat} ref={componentRef}/>
+                    })
+                }
             </div>
         </div>
         {

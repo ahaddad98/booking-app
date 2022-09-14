@@ -296,10 +296,13 @@ const CardElement = styled.div`
             display: none;
     }
 `
-const CardEl = (props: any) => {
+const CardEl = ({data, ...props}: any) => {
     const his = useHistory()
+    useEffect(()=>{
+        console.log(data);
+    },[])
     return <CardElement>
-        <div className="cardel">
+        <div className="cardel" ref={props.ref}>
             {
                 <div className="left" style={{ display: "flex", flexDirection: 'row', gap: '10px' }}>
                     <div className="left">

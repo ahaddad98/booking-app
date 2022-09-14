@@ -81,9 +81,13 @@ function Map2(props: any) {
             id='MapContainer1'
             style={{ marginLeft: "0em", top: "2px", marginTop: "0em", width: "100%", height: "750px", border: "1px solid #18B6C0" }}
             center={position} zoom={10} scrollWheelZoom={true} zoomControl={false}>
-            <TileLayer
+            {/* <TileLayer
                 // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+            /> */}
+            <TileLayer
+                url="http://{s}.google.com/vt/lyrs=m&gl=ma&x={x}&y={y}&z={z}"
+                subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
             />
             <ZoomControl position="bottomright" />
             {fackLocalisation.map((localisation, index) => {

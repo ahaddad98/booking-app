@@ -1,18 +1,9 @@
 import { Button, Input } from "antd";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Checkbox } from 'antd';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { Switch } from 'antd';
-import { Image, Badge } from 'antd';
-import { InboxOutlined } from '@ant-design/icons';
-import type { UploadProps } from 'antd';
-import { message, Upload } from 'antd';
 import { useHistory, useLocation } from "react-router-dom";
 import { Addannounce } from "../../../networkAPI/axiosAPI";
 import Uploader from "./Uploader";
-import Uplodertest from "./test";
-// import Uploader from "./Uploader";
 const Content = styled.div`
     width: 100%;
     padding: 6rem 6rem  0rem 6rem;
@@ -377,6 +368,7 @@ const Part3 = (props: any) => {
                     <div className="Photos-immobilier">
                         Photos d’immobilier
                     </div>
+                    {/* <input type={'file'}> input file </input> */}
                     <Uploader images={images} setImages={setImages}/>
                 </div>
             </div>

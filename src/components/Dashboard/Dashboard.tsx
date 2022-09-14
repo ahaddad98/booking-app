@@ -18,7 +18,7 @@ const Content = styled.div`
 `
 
 export default function Dashboard(props: any) {
-  const [data, setData] = useState<any>()
+  const [data, setData] = useState<any>([])
   const his = useHistory()
     useEffect(()=>{
       if (!localStorage.getItem('token'))
@@ -27,8 +27,7 @@ export default function Dashboard(props: any) {
     },[])
     const getannounc =async () => {
         const {data} = await getAnnounces()
-        console.log(data);
-        
+        // console.log(data);
         if (data)
           setData(data)
     }
@@ -40,7 +39,8 @@ export default function Dashboard(props: any) {
       <Headbar />
       {
         data ?
-        <ContentPage data={data}/> : <Spin style={{marginTop: '5rem',fontSize: '40px'}} size='large'/>
+        <ContentPage data={data} setData={setData} getdata={getannounc}/> 
+        : <Spin style={{marginTop: '5rem',fontSize: '40px'}} size='large'/>
       }
     </Content>
   );

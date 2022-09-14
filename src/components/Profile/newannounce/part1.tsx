@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
-import Countrystatecity from "./test";
+// import Countrystatecity from "./test";
 import TextArea from "antd/lib/input/TextArea";
 const Content = styled.div`
     width: 100%;

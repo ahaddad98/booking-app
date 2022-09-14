@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 
 
 const Uploader = (props: any) => {
-    const [previewOpen, setPreviewOpen] = useState(false);
+    const [previewOpen, setPreviewOpen] = useState<any>(false);
 
     const getBase64 = (file: RcFile): Promise<string> =>
         new Promise((resolve, reject) => {
@@ -18,9 +18,11 @@ const Uploader = (props: any) => {
 
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
-    const [fileList, setFileList] = useState<UploadFile[]>([
-
-    ]);
+    const [fileList, setFileList] = useState<UploadFile[]>([]);
+    const beforeUpload = (file: any) => {
+        console.log(file);
+        return false
+    }
 
     const handleCancel = () => setPreviewOpen(false);
 
@@ -43,9 +45,9 @@ const Uploader = (props: any) => {
             <div style={{ marginTop: 8 }}>Upload</div>
         </div>
     );
-    useEffect(()=>{
+    useEffect(() => {
         props.setImages(fileList)
-    },[fileList])
+    }, [fileList])
     return <>
         <Upload
             // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -53,10 +55,11 @@ const Uploader = (props: any) => {
             fileList={fileList}
             onPreview={handlePreview}
             onChange={handleChange}
+            beforeUpload={beforeUpload}
         >
             {fileList.length >= 8 ? null : uploadButton}
         </Upload>
-        {/* <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
+        {/* <Modal open={false} onCancel={handleCancel}>
             <img alt="example" style={{ width: '100%' }} src={previewImage} />
         </Modal> */}
     </>
