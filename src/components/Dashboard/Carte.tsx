@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDayEventHandlers } from 'react-day-picker/dist/hooks/useDayEventHandlers';
 import { MapContainer, TileLayer, Rectangle, LayersControl, LayerGroup, Popup, FeatureGroup, Circle, useMap, useMapEvent, ZoomControl } from 'react-leaflet'
 import styled from 'styled-components';
@@ -76,6 +76,11 @@ function Map2(props: any) {
     const fackLocalisation = [
         { position: { lat: 40.75404190409601, lng: -74.0225856988382 }, name: Icon1 },
     ]
+    useEffect(()=>{
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'))
+        }, 300)
+    },[])
     return (
         <MapContainer
             id='MapContainer1'

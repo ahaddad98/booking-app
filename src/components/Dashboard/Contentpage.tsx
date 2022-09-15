@@ -236,7 +236,7 @@ const ContentPage = (props: any) => {
             componentRef.current.addEventListener("scroll", handleScroll);
             return () => {
                 effectRun.current = true;
-                componentRef.current.removeEventListener("scroll", handleScroll);
+                // componentRef.current.removeEventListener("scroll", handleScroll);
             };
         }
         setTimeout(() => {
@@ -250,7 +250,7 @@ const ContentPage = (props: any) => {
                 {
                         props.data.results && 
                     props.data.results.map((stat: any, key: any) => {
-                        // return <CardEl data={stat} ref={componentRef}/>
+                        return <CardEl data={stat} ref={componentRef}/>
                     })
                 }
             </div>
