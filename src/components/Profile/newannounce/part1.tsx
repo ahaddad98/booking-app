@@ -90,7 +90,7 @@ const Content = styled.div`
             .inputsleft{
                 display: flex;
                 flex-direction: column;
-                gap: 3rem;
+                gap: .5rem;
                 .partinp{
                     display: flex;
                     flex-direction: column;
@@ -134,7 +134,7 @@ const Content = styled.div`
             .inputright{
                 display: flex;
                 flex-direction: column;
-                gap: 3rem;
+                gap: 0rem;
                 .partinp{
                     display: flex;
                     flex-direction: column;
@@ -230,7 +230,7 @@ const Part1 = (props: any) => {
     const his = useHistory()
     const onFinish = (values: any) => {
         console.log('Success:', values);
-        his.push('/profile/part2', {values})
+        his.push('/profile/part2', { values })
     };
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
@@ -247,7 +247,7 @@ const Part1 = (props: any) => {
     const [form] = Form.useForm();
     const ontyperChange = (value: string) => {
         console.log(value);
-        
+
         switch (value) {
             case 'Apartments':
                 form.setFieldsValue({ Type: 'Apartments' });
@@ -284,7 +284,7 @@ const Part1 = (props: any) => {
         }
     };
     const onsyndicChange = (value: string) => {
-        
+
     };
     return <Content>
         <Form
@@ -384,19 +384,20 @@ const Part1 = (props: any) => {
                                 <div className="text">
                                     Superficie (m2)
                                 </div>
-                                <Input type="text" bordered={false} placeholder='Superficie (m2)' className='inp' />
+                                <Input type="number" bordered={false} placeholder='Superficie (m2)' className='inp' />
                             </div>
                         </Form.Item>
                         <Form.Item
-                            label="" valuePropName="checked"
+                            label=""
                             name="Syndic"
-                        // rules={[{ required: true, message: 'Please input Disponibilite du Syndic!' }]}
+                            rules={[{ required: true, message: 'Please input Type d’immobilier!' }]}
+                            className="partinp"
                         >
                             <div className="partinp">
                                 <div className="text">
                                     Disponibilite du Syndic
                                 </div>
-                                <Switch onChange={onChange1} style={{ width: '20px', marginTop: '1rem' }} />
+                                <Input defaultValue={0} type="number" bordered={false} placeholder='Syndic' className='inp' />
                             </div>
                         </Form.Item>
                         <Form.Item
@@ -419,7 +420,7 @@ const Part1 = (props: any) => {
                             rules={[{ required: true, message: 'Please input Type d’immobilier!' }]}
                             className="partinp"
                         >
-                            {/* <div className="partinp"> */}
+                            <div className="partinp">
                                 <div className="text">
                                     Type d’immobilier
                                 </div>
@@ -432,7 +433,7 @@ const Part1 = (props: any) => {
                                     <Select.Option value="land">land & farms</Select.Option>
                                     <Select.Option value="another">another</Select.Option>
                                 </Select>
-                            {/* </div> */}
+                            </div>
                         </Form.Item>
                         <Form.Item
                             label=""
@@ -472,6 +473,18 @@ const Part1 = (props: any) => {
                                     Adress
                                 </div>
                                 <Input type="text" bordered={false} placeholder='Adress' className='inp' />
+                            </div>
+                        </Form.Item>
+                        <Form.Item
+                            label=""
+                            name="Price"
+                            rules={[{ required: true, message: 'Please input adress!' }]}
+                        >
+                            <div className="partinp">
+                                <div className="text">
+                                    Prix
+                                </div>
+                                <Input type="number" bordered={false} placeholder='prix' className='inp' />
                             </div>
                         </Form.Item>
                         {/* </Form> */}

@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { useHistory, useLocation } from "react-router-dom";
 import { Addannounce } from "../../../networkAPI/axiosAPI";
 import Uploader from "./Uploader";
+import { Checkbox } from 'antd';
+import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 const Content = styled.div`
     width: 100%;
     padding: 6rem 6rem  0rem 6rem;
@@ -128,6 +130,71 @@ const Content = styled.div`
                     line-height: 24px;
                     color: #344054;
                 }
+                .Equipements{
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                min-width: 300px;
+                max-width: 500px;
+                .title{
+                    font-family: 'Inter';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 15.9167px;
+                    line-height: 24px;
+                    color: #344054;
+                    white-space: nowrap;
+                }
+                .check{
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    align-items: center;
+                    .ant-checkbox-group {
+                        box-sizing: border-box;
+                        margin: 0;
+                        padding: 0;
+                        color: rgba(0,0,0,.85);
+                        font-size: 14px;
+                        font-variant: tabular-nums;
+                        line-height: 1.5715;
+                        list-style: none;
+                        font-feature-settings: "tnum";
+                        display: inline-block;
+                        display: flex;
+                        /* max-width: 500px;
+                        min-width: 300px; */
+                        flex-wrap: wrap;
+                        gap: 1rem;
+                    }
+                    .ant-checkbox+span {
+                        padding-right: 8px;
+                        padding-left: 8px;
+                        font-family: 'Inter';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14.9167px;
+                        line-height: 24px;
+                        color: #2D3962;
+                    }
+                    .checkelement{
+                        min-width: 145px;
+                        margin-top: 1.2rem;
+                        white-space: nowrap;
+                    }
+                }
+                .add{
+                    display: flex;
+                    gap: 1rem;
+                    font-family: 'Inter';
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 16.9167px;
+                    line-height: 24px;
+                    color: #2D3962;
+                    cursor: pointer;
+                }
+            }
             }
             .vl{
                 border: 0.5px solid #A5ABC0;
@@ -279,18 +346,49 @@ const Content = styled.div`
 const Part3 = (props: any) => {
     const his = useHistory()
     const [images, setImages] = useState<any>([])
+    const Loc = useLocation<any>()
+    console.log(Loc.state);
     const newannounce = async () => {
-        try{
-            const res = await Addannounce(Loc.state.values, images)
-            console.log(res);
+        try {
+            const res = await Addannounce(Loc.state, images, checkedValues)
+            // console.log(res);
         }
         catch (e) {
             console.log(e);
-            
+
         }
     }
-    const Loc = useLocation<any>()
-    console.log(Loc.state);
+    const [checkedValues, SetCheckedValues] = useState<any>([])
+    const onChange22 = (checkedValues: CheckboxValueType[]) => {
+        // console.log('checked = ', checkedValues);
+        SetCheckedValues(checkedValues)
+    };
+
+    const { TextArea } = Input;
+    const location = useLocation<any>()
+    const options = [
+        { value: 'parking', label: 'Parking' },
+        { value: 'network', label: 'Wifi' },
+        { value: 'garage', label: 'Garage' },
+        { value: 'Microondes', label: 'Micro ondes' },
+        { value: 'Jardin', label: 'Jardin' },
+        { value: 'pool', label: 'Piscine' },
+        { value: 'fridge', label: 'Rerigerateur' },
+        { value: 'balcony', label: 'Terasse' },
+        { value: 'dishwasher', label: 'Chauffeau' },
+        { value: 'Ferarepasser', label: 'Fer a repasser' },
+        { value: 'airCondition', label: 'Climatiseur' },
+        { value: 'balcony', label: 'Balcon' },
+        { value: 'Internet', label: 'Internet' },
+        { value: 'Consierge', label: 'Consierge' },
+        { value: 'Television', label: 'Television' },
+        { value: 'elevator', label: 'Ascenseur' },
+        { value: 'washingMachine', label: 'Machine a laver' },
+        { value: 'garden', label: 'Securite' },
+        { value: 'computer', label: 'computer' },
+        { value: 'playstation', label: 'playstation' },
+    ];
+
     return <Content>
         <div className="contentglob">
             <div className="stepper">
@@ -365,11 +463,30 @@ const Part3 = (props: any) => {
             </div>
             <div className="inputs">
                 <div className="inputsleft">
+                    <div className="Equipements">
+                        <div className="title">
+                            Equipements supplementaires
+                        </div>
+                        <div className="check">
+                            <Checkbox.Group options={options} onChange={onChange22} />
+                        </div>
+                        <div className="add">
+                            <div style={{ color: '#FF6477' }}>
+                                +
+                            </div>
+                            <div className="" style={{ textDecoration: 'underline' }}>
+                                Add custom equipment
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="vl"></div>
+                <div className="inputsleft">
                     <div className="Photos-immobilier">
                         Photos d’immobilier
                     </div>
                     {/* <input type={'file'}> input file </input> */}
-                    <Uploader images={images} setImages={setImages}/>
+                    <Uploader images={images} setImages={setImages} />
                 </div>
             </div>
         </div>

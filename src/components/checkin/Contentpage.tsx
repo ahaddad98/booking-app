@@ -1,9 +1,9 @@
 import { Button, Select } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Rate } from 'antd';
 import { Image } from 'antd';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Col, Row, Divider } from 'antd';
 import Map2 from "./Carte";
 // import DatePicker from "react-datepicker";
@@ -299,7 +299,7 @@ const Contact = styled.div`
 
 `
 
-const ContentPage = (props: any) => {
+const ContentPage = ({data, ...props}: any) => {
     const { RangePicker } = DatePicker;
     const { Option } = Select;
     const handleChange = Composant;
@@ -315,11 +315,14 @@ const ContentPage = (props: any) => {
     //     console.log(`selected ${value}`);
     // };
     const his = useHistory()
+    useEffect(()=>{
+        console.log(data);
+    },[])
     return <Content>
         <div className="center-Content">
             <div className="title">
                 <div>
-                    The People's Brownstone
+                    {data.title}
                 </div>
                 <div className="Rating">
                     <div className="val">4.0</div>
@@ -373,7 +376,8 @@ const ContentPage = (props: any) => {
                 <About className="about">
                     <div>About this Appartment</div>
                     <div className="text">
-                        Overlooking the Mediterranean Sea, this relaxed all-suite hotel is a 17-minute walk from Martil Beach and 11 km from Antigua Medina. Tetouan Airport is 8 km away.
+                        {data.description}
+                        {/* Overlooking the Mediterranean Sea, this relaxed all-suite hotel is a 17-minute walk from Martil Beach and 11 km from Antigua Medina. Tetouan Airport is 8 km away. */}
                     </div>
                     <div className="text">
                         Check-in time: 14:00
@@ -402,7 +406,7 @@ const ContentPage = (props: any) => {
                         Superficie (m2)
                     </div>
                     <div className="surfval">
-                        140m
+                        {data.area}m
                     </div>
                 </div>
                 <div className="surface" style={{ marginLeft: '2rem' }}>

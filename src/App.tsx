@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 import Login from './pages/login';
 import Dashboard from './components/Dashboard/Dashboard';
 import Profile from './components/Profile/Profile';
-import Checkin from './components/checkin/Dashboard';
+import Checkin from './components/checkin/Checkin';
 
 const App = () => {
   const [protectedroute, setProtectedroute] = useState(false)
@@ -15,10 +15,6 @@ const App = () => {
   }, [])
   return (
     <div className="">
-      {/* <BrowserRouter>
-        <Switch>
-        </Switch>
-      </BrowserRouter> */}
       <BrowserRouter>
         <Switch>
           <Route path='/login'
@@ -27,7 +23,7 @@ const App = () => {
           <Route path='/profile'
             component={Profile}>
           </Route>
-          <Route path='/checkin'
+          <Route path='/checkin/:id'
             component={Checkin}>
           </Route>
           <Route exact path='/'
@@ -42,54 +38,6 @@ const App = () => {
         </Switch>
       </BrowserRouter>
     </div>
-    // </MyProvider>
-    // <DefaultLayout />
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <Counter />
-    //     <p>
-    //       Edit <code>src/App.tsx</code> and save to reload.
-    //     </p>
-    //     <span>
-    //       <span>Learn </span>
-    //       <a
-    //         className="App-link"
-    //         href="https://reactjs.org/"
-    //         target="_blank"
-    //         rel="noopener noreferrer"
-    //       >
-    //         React
-    //       </a>
-    //       <span>, </span>
-    //       <a
-    //         className="App-link"
-    //         href="https://redux.js.org/"
-    //         target="_blank"
-    //         rel="noopener noreferrer"
-    //       >
-    //         Redux
-    //       </a>
-    //       <span>, </span>
-    //       <a
-    //         className="App-link"
-    //         href="https://redux-toolkit.js.org/"
-    //         target="_blank"
-    //         rel="noopener noreferrer"
-    //       >
-    //         Redux Toolkit
-    //       </a>
-    //       ,<span> and </span>
-    //       <a
-    //         className="App-link"
-    //         href="https://react-redux.js.org/"
-    //         target="_blank"
-    //         rel="noopener noreferrer"
-    //       >
-    //         React Redux
-    //       </a>
-    //     </span>
-    //   </header>
-    // </div>
   );
 }
 
