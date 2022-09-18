@@ -255,3 +255,13 @@ element.style {
   from {width: 0}
   to {width: 50%;}
 }
+
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  max-height: calc(100vh - 80px);
+  height: 310px;
+}
+
+.image-gallery-left-nav .image-gallery-svg, .image-gallery-right-nav .image-gallery-svg {
+  height: 65px;
+  width: 60px;
+}
