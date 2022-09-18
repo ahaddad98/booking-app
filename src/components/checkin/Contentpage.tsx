@@ -12,13 +12,17 @@ import 'react-day-picker/dist/style.css';
 import { format } from 'date-fns';
 import { DatePicker, Space } from 'antd';
 import { Carousel } from 'antd';
+import ReactImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from "react-image-gallery";
+import axios from "axios";
 const contentStyle: React.CSSProperties = {
     height: '160px',
     color: '#fff',
     lineHeight: '160px',
     textAlign: 'center',
     background: '#364d79',
-  };
+};
 const Content = styled.div`
     width: 100%;
     display: flex;
@@ -72,7 +76,6 @@ const Styleimg = styled.div`
     display: flex;
     gap: 1rem;
     height: 400px;
-
     .biggimage{
         width: 50%;
         height: 400px;
@@ -299,25 +302,50 @@ const Contact = styled.div`
 
 `
 
-const ContentPage = ({data, ...props}: any) => {
+const ContentPage = ({ data, ...props }: any) => {
     const { RangePicker } = DatePicker;
     const { Option } = Select;
     const handleChange = Composant;
     const [startDate, setStartDate] = useState(new Date());
     const [selected, setSelected] = React.useState<Date>();
+    function columns(containerWidth: any) {
+        let columns = 1;
+        if (containerWidth >= 500) columns = 2;
+        if (containerWidth >= 900) columns = 3;
+        if (containerWidth >= 1500) columns = 4;
+        return columns;
+    }
 
     let footer = <p>Please pick a day.</p>;
     if (selected) {
         footer = <p>You picked {format(selected, 'PP')}.</p>;
     }
-    // Composant
-    // Composant (value: string) => {
-    //     console.log(`selected ${value}`);
-    // };
     const his = useHistory()
-    useEffect(()=>{
-        console.log(data);
-    },[])
+    const [photos, setPhotos] = useState<any>([])
+    const [images, setImages] = React.useState(null);
+    useEffect(() : any=> {
+        let shouldCancel = false;
+        const call = async () => {
+            // const response = await axios.get(
+            //     "https://google-photos-album-demo2.glitch.me/4eXXxxG3rYwQVf948"
+            // );
+            if (data.photo.length > 0) {
+                setImages(
+                    data.photo.map((url: any)=> ({
+                        original: `http://localhost:3000/upload/${url}=w1024`,
+                        thumbnail: `http://localhost:3000/upload/${url}=w100`
+                    }))
+                );
+            }
+        };
+        call();
+        return () => (shouldCancel = true);
+        // let arr  : any = []
+        // data.photo.map((stat: any, key: any)=>{
+        //     arr.push('http://localhost:3000/upload/'+stat)
+        // })
+        // setPhotos(arr)
+    }, [])
     return <Content>
         <div className="center-Content">
             <div className="title">
@@ -325,51 +353,46 @@ const ContentPage = ({data, ...props}: any) => {
                     {data.title}
                 </div>
                 <div className="Rating">
-                    <div className="val">4.0</div>
-                    <Rate disabled defaultValue={4} style={{ color: "#2B67F6", fontSize: "18px" }} />
-                    <div className="review" >(7 Reviews)</div>
-                    <div className="comment">Afficher 251 avis</div>
+                    <div className="val">0.0</div>
+                    <Rate disabled defaultValue={0} style={{ color: "#2B67F6", fontSize: "18px" }} />
+                    <div className="review" >(0 Reviews)</div>
+                    <div className="comment">Afficher 0 avis</div>
                 </div>
             </div>
             <Styleimg>
                 <Image.PreviewGroup>
-                    <div className="biggimage">
-                        <Image
-                            className="myimg"
-                            // width={200}
-                            src="https://a0.muscache.com/im/pictures/105270429/847b9954_original.jpg?im_w=720"
-                        />
-                    </div>
-                    <div className="otherimages">
-                        <div className="otherimages-left">
-                            <div className="myimg">
-                                <Image
-                                    // width={200}
-                                    src="https://a0.muscache.com/im/pictures/105270429/847b9954_original.jpg?im_w=720"
-                                />
-                            </div >
-                            <div className="myimg">
-                                <Image
-                                    // width={200}
-                                    src="https://a0.muscache.com/im/pictures/105270429/847b9954_original.jpg?im_w=720"
-                                />
-                            </div>
-                        </div>
-                        <div className="otherimages-left">
-                            <div className="myimg">
-                                <Image
-                                    // width={200}
-                                    src="https://a0.muscache.com/im/pictures/105270429/847b9954_original.jpg?im_w=720"
-                                />
-                            </div>
-                            <div className="myimg">
-                                <Image
-                                    // width={200}
-                                    src="https://a0.muscache.com/im/pictures/105270429/847b9954_original.jpg?im_w=720"
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    {/* <ReactImageGallery  columns={columns} direction="column"/> */}
+                    {
+                        images ? <ImageGallery items={images} /> : null
+                        // data.photo.map((stat: any, key: any) => {
+                        //     if (key == 0) {
+                        //         return (<>
+                        //             <div className="biggimage">
+                        //                 <Image
+                        //                     className="myimg"
+                        //                     // width={200}
+                        //                     src="https://a0.muscache.com/im/pictures/105270429/847b9954_original.jpg?im_w=720"
+                        //                 />
+                        //             </div>
+                        //         </>
+                        //         )
+                        //     }
+                        //     else {
+                        //         return (
+                        //             <div className="otherimages">
+                        //                 <div className="otherimages-left">
+                        //                     <div className="myimg">
+                        //                         <Image
+                        //                             // width={200}
+                        //                             src="https://a0.muscache.com/im/pictures/105270429/847b9954_original.jpg?im_w=720"
+                        //                         />
+                        //                     </div >
+                        //                 </div>
+                        //             </div>
+                        //         )
+                        //     }
+                        // })
+                    }
                 </Image.PreviewGroup>
             </Styleimg>
             <Price>
@@ -377,7 +400,6 @@ const ContentPage = ({data, ...props}: any) => {
                     <div>About this Appartment</div>
                     <div className="text">
                         {data.description}
-                        {/* Overlooking the Mediterranean Sea, this relaxed all-suite hotel is a 17-minute walk from Martil Beach and 11 km from Antigua Medina. Tetouan Airport is 8 km away. */}
                     </div>
                     <div className="text">
                         Check-in time: 14:00
@@ -389,7 +411,7 @@ const ContentPage = ({data, ...props}: any) => {
                 <div className="pricepart">
                     <div className="priceval">
                         <div className="val">
-                            231 DH
+                            {data.price} DH
                         </div>
                         <div className="mois">
                             Par mois
@@ -666,7 +688,7 @@ const ContentPage = ({data, ...props}: any) => {
                         <path d="M8.50002 6.10352e-05C3.90698 6.10352e-05 0.170288 3.73675 0.170288 8.32974C0.170288 14.0298 7.62458 22.3978 7.94195 22.7512C8.24005 23.0833 8.76052 23.0827 9.05808 22.7512C9.37545 22.3978 16.8297 14.0298 16.8297 8.32974C16.8297 3.73675 13.093 6.10352e-05 8.50002 6.10352e-05ZM8.50002 12.5206C6.18915 12.5206 4.30917 10.6406 4.30917 8.32974C4.30917 6.01887 6.18919 4.13889 8.50002 4.13889C10.8108 4.13889 12.6908 6.01892 12.6908 8.32979C12.6908 10.6407 10.8108 12.5206 8.50002 12.5206Z" fill="#2D3962" />
                     </svg>
                     <div className="text">
-                        05396-88270
+                        {data.phone}
                     </div>
                 </div>
             </Contact>

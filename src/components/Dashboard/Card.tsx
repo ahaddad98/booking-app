@@ -137,12 +137,12 @@ const CardElement = styled.div`
                 font-family: 'Nunito';
                 font-style: normal;
                 font-weight: 500;
-                font-size: 20.7318px;
+                font-size: 17.7318px;
                 line-height: 19px;
                 text-align: center;
                 color: #FFFFFF;
-                width: 200px;
-                height: 50px;
+                width: 170px;
+                height: 40px;
                 @media screen and (max-width: 1370px){
                     width: 170px;
                     height: 40px;
@@ -370,7 +370,7 @@ const CardEl = ({ data, ...props }: any) => {
     }
     useEffect(() => {
         // console.log(
-        console.log(data.info);
+        console.log(data);
         getequipementtrue()
         // getAddress(data.location.lat, data.location.lng)
         // );
@@ -440,7 +440,7 @@ const CardEl = ({ data, ...props }: any) => {
             <div className="right">
                 <div className="righttop">
                     <div className="price">
-                        231 DH
+                        {data.price} DH
                     </div>
                     <div className="par">
                         Par mois

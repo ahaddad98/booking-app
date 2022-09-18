@@ -43,7 +43,7 @@ export const tologinsignup = async (name, email, password) => {
 export const Addannounce = async (data, dataimages, checkedValues) => {
     // console.log('data',data);
     // console.log(dataimages);
-    console.log(checkedValues);
+    console.log(data.values.Price);
     // equipment: Joi.object({
     //     parking: Joi.boolean(),
     //     elevator: Joi.boolean(),
@@ -69,6 +69,9 @@ export const Addannounce = async (data, dataimages, checkedValues) => {
     formData.append("postType", '5c0a7922c9d89830f4911426');
     formData.append("area", data.values.Superficie);
     formData.append("location[lat]", 10);
+    formData.append("price", data.values.Price);
+    // formData.append("phoneNumber", '+7687587687');
+    formData.append("phone", '10658587687');
     formData.append("location[lng]", 10);
     formData.append("postCategory", '5c0a7922c9d89830f4911426');
     formData.append("stage", 10);
