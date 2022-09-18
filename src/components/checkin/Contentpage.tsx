@@ -323,17 +323,19 @@ const ContentPage = ({ data, ...props }: any) => {
     const his = useHistory()
     const [photos, setPhotos] = useState<any>([])
     const [images, setImages] = React.useState(null);
-    useEffect(() : any=> {
+    useEffect((): any => {
         let shouldCancel = false;
         const call = async () => {
             // const response = await axios.get(
             //     "https://google-photos-album-demo2.glitch.me/4eXXxxG3rYwQVf948"
             // );
             if (data.photo.length > 0) {
+                console.log(data.photo);
+
                 setImages(
-                    data.photo.map((url: any)=> ({
-                        original: `http://localhost:3000/upload/${url}=w1024`,
-                        thumbnail: `http://localhost:3000/upload/${url}=w100`
+                    data.photo.map((url: any) => ({
+                        original: `http://localhost:3000/upload/${url}`,
+                        thumbnail: `http://localhost:3000/upload/${url}`
                     }))
                 );
             }
@@ -363,17 +365,19 @@ const ContentPage = ({ data, ...props }: any) => {
                 <Image.PreviewGroup>
                     {/* <ReactImageGallery  columns={columns} direction="column"/> */}
                     {
-                        images ? <ImageGallery items={images} /> : null
+                        <div className="biggimage">
+                            {
+                                images ? <ImageGallery items={images} /> : null
+                            }
+                        </div>
                         // data.photo.map((stat: any, key: any) => {
                         //     if (key == 0) {
                         //         return (<>
-                        //             <div className="biggimage">
                         //                 <Image
                         //                     className="myimg"
                         //                     // width={200}
                         //                     src="https://a0.muscache.com/im/pictures/105270429/847b9954_original.jpg?im_w=720"
                         //                 />
-                        //             </div>
                         //         </>
                         //         )
                         //     }
