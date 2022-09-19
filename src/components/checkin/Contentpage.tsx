@@ -320,49 +320,42 @@ const ContentPage = ({ data, ...props }: any) => {
     const handleChange = Composant;
     const [startDate, setStartDate] = useState(new Date());
     const [selected, setSelected] = React.useState<Date>();
-    function columns(containerWidth: any) {
-        let columns = 1;
-        if (containerWidth >= 500) columns = 2;
-        if (containerWidth >= 900) columns = 3;
-        if (containerWidth >= 1500) columns = 4;
-        return columns;
+    const [equi, setEqui] = useState<any>([])
+    const getequipementtrue = () => {
+        let arr: any = []
+        if (data.equipment.length > 0) {
+            if (data.equipment[0]['Parking'])
+                arr.push(' parking')
+            if (data.equipment[0]['elevator'])
+                arr.push(' elevator')
+            if (data.equipment[0]['balcony'])
+                arr.push(' balcony')
+            if (data.equipment[0]['computer'])
+                arr.push(' computer')
+            if (data.equipment[0]['playstation'])
+                arr.push(' playstation')
+            if (data.equipment[0]['network'])
+                arr.push(' network')
+            if (data.equipment[0]['airCondition'])
+                arr.push(' airCondition')
+            if (data.equipment[0]['dishwasher'])
+                arr.push(' dishwasher')
+            if (data.equipment[0]['clothesDryer'])
+                arr.push(' clothesDryer')
+            if (data.equipment[0]['washingMachine'])
+                arr.push(' washing Machine')
+            if (data.equipment[0]['coffeeMaker'])
+                arr.push(' coffeeMaker')
+            if (data.equipment[0]['fridge'])
+                arr.push(' fridge')
+            if (data.equipment[0]['waterHeater'])
+                arr.push(' waterHeater')
+            setEqui(arr)
+        }
     }
-
-    let footer = <p>Please pick a day.</p>;
-    if (selected) {
-        footer = <p>You picked {format(selected, 'PP')}.</p>;
-    }
-    const his = useHistory()
-    const [photos, setPhotos] = useState<any>([])
-    const [images, setImages] = React.useState(null);
-    const images1 = [
-        {
-            src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-            width: 320,
-            height: 174,
-            isSelected: true,
-            caption: "After Rain (Jeshu John - designerspics.com)",
-        },
-        {
-            src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
-            width: 320,
-            height: 212,
-            tags: [
-                { value: "Ocean", title: "Ocean" },
-                { value: "People", title: "People" },
-            ],
-            alt: "Boats (Jeshu John - designerspics.com)",
-        },
-
-        {
-            src: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg",
-            width: 320,
-            height: 212,
-        },
-    ];
     useEffect((): any => {
-        console.log(data);
-        
+        // console.log(data);
+        getequipementtrue()
     }, [])
     return <Content>
         <div className="center-Content">
@@ -510,7 +503,7 @@ const ContentPage = ({ data, ...props }: any) => {
                         <path d="M20.5979 19.7283V13.7395C20.5979 13.4814 20.3877 13.2713 20.1295 13.2713H17.9245C17.6663 13.2713 17.4563 13.4814 17.4563 13.7395V19.7283C17.4563 19.9865 17.6663 20.1965 17.9245 20.1965H20.1295C20.3877 20.1965 20.5979 19.9865 20.5979 19.7283Z" fill="#667197" />
                     </svg>
                     <div className="text">
-                        {data.stage} Etage 
+                        {data.stage} Etage
                     </div>
                 </div>
             </Composant>
@@ -518,29 +511,23 @@ const ContentPage = ({ data, ...props }: any) => {
             <Service>
                 <div className="colomn">
                     <div className="Service-left">
-                        <div className="title">Services</div>
+                        <div className="title">Equipements</div>
                         <div className="elements">
-                            <div className="element">
-                                <div className="item">
-                                </div>
-                                <div className="name">
-                                    Terasse
-                                </div>
-                            </div><div className="element">
-                                <div className="item">
-                                </div>
-                                <div className="name">
-                                    Terasse
-                                </div>
-                            </div>
-                            <div className="element">
-                                <div className="item">
-                                </div>
-                                <div className="name">
-                                    Terasse
-                                </div>
-                            </div>
-                            <div className="element">
+                            {
+                                equi.length > 0 &&
+                                equi.map((stat: any, key: any) => {
+                                    return <>
+                                        <div className="element">
+                                            <div className="item">
+                                            </div>
+                                            <div className="name">
+                                                {stat}
+                                            </div>
+                                        </div>
+                                    </>
+                                })
+                            }
+                            {/* <div className="element">
                                 <div className="item">
                                 </div>
                                 <div className="name">
@@ -553,8 +540,8 @@ const ContentPage = ({ data, ...props }: any) => {
                                 <div className="name">
                                     Terasse
                                 </div>
-                            </div>
-                            <div className="element">
+                            </div> */}
+                            {/* <div className="element">
                                 <div className="item">
                                 </div>
                                 <div className="name">
@@ -567,8 +554,8 @@ const ContentPage = ({ data, ...props }: any) => {
                                 <div className="name">
                                     Terasse
                                 </div>
-                            </div>
-                            <div className="element">
+                            </div> */}
+                            {/* <div className="element">
                                 <div className="item">
                                 </div>
                                 <div className="name">
@@ -581,6 +568,13 @@ const ContentPage = ({ data, ...props }: any) => {
                                 <div className="name">
                                     Terasse
                                 </div>
+                            </div> */}
+                            {/* <div className="element">
+                                <div className="item">
+                                </div>
+                                <div className="name">
+                                    Terasse
+                                </div>
                             </div>
                             <div className="element">
                                 <div className="item">
@@ -588,10 +582,17 @@ const ContentPage = ({ data, ...props }: any) => {
                                 <div className="name">
                                     Terasse
                                 </div>
-                            </div>
+                            </div> */}
+                            {/* <div className="element">
+                                <div className="item">
+                                </div>
+                                <div className="name">
+                                    Terasse
+                                </div>
+                            </div> */}
                         </div>
                     </div>
-                    <div className="Service-left">
+                    {/* <div className="Service-left">
                         <div className="title">Equipements</div>
                         <div className="elements">
                             <div className="element">
@@ -664,17 +665,10 @@ const ContentPage = ({ data, ...props }: any) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div style={{ width: '60%', marginTop: '2rem' }}>
-                    {/* <RangePicker /> */}
-                    {/* <DatePicker selected={startDate} onChange={(date:Date) => setStartDate(date)} /> */}
                     <Map2 />
-                    {/* <DayPicker numberOfMonths={2}
-                        selected={selected}
-                        onSelect={setSelected}
-                        footer={footer}
-                    />; */}
                 </div>
             </Service>
             <hr style={{ margin: '2rem' }} />
@@ -687,7 +681,8 @@ const ContentPage = ({ data, ...props }: any) => {
                         <path d="M8.50002 6.10352e-05C3.90698 6.10352e-05 0.170288 3.73675 0.170288 8.32974C0.170288 14.0298 7.62458 22.3978 7.94195 22.7512C8.24005 23.0833 8.76052 23.0827 9.05808 22.7512C9.37545 22.3978 16.8297 14.0298 16.8297 8.32974C16.8297 3.73675 13.093 6.10352e-05 8.50002 6.10352e-05ZM8.50002 12.5206C6.18915 12.5206 4.30917 10.6406 4.30917 8.32974C4.30917 6.01887 6.18919 4.13889 8.50002 4.13889C10.8108 4.13889 12.6908 6.01892 12.6908 8.32979C12.6908 10.6407 10.8108 12.5206 8.50002 12.5206Z" fill="#2D3962" />
                     </svg>
                     <div className="text">
-                        Route De Fes, Kilomètre 4 , Palmeraie, Marrakech
+                        address
+                        {/* Route De Fes, Kilomètre 4 , Palmeraie, Marrakech */}
                     </div>
                 </div>
                 <div className="adress">
