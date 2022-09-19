@@ -334,8 +334,8 @@ const ContentPage = ({ data, ...props }: any) => {
 
                 setImages(
                     data.photo.map((url: any) => ({
-                        original: `http://localhost:3000/upload/${url}`,
-                        thumbnail: `http://localhost:3000/upload/${url}`
+                        original: `https://api.total.digieye.io/upload/${url}`,
+                        thumbnail: `https://api.total.digieye.io/upload/${url}`
                     }))
                 );
             }
