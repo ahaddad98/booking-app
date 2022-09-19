@@ -16,6 +16,7 @@ import ReactImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
 import axios from "axios";
+import { Gallery } from "react-grid-gallery";
 const contentStyle: React.CSSProperties = {
     height: '160px',
     color: '#fff',
@@ -29,8 +30,8 @@ const Content = styled.div`
     margin-bottom: 5rem;
     .center-Content{
         width: 100%;
-        padding-left: 19%;
-        padding-right: 19%;
+        padding-left: 15%;
+        padding-right: 15%;
         .title{
             font-family: 'Roboto';
             font-style: normal;
@@ -76,12 +77,21 @@ const Styleimg = styled.div`
     display: flex;
     gap: 1rem;
     height: 400px;
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
     .biggimage{
-        width: 50%;
+        width: 100%;
         height: 400px;
+        display: flex;
+        justify-content: center;
         .myimg{
             width: 100%;
             height: 400px;
+            border-radius: 10px;
         }
     }
     .otherimages{
@@ -118,13 +128,14 @@ const About = styled.div`
 const Price = styled.div`
     width: 100%;
     display: flex;
+    margin-top: 3rem;
     /* justify-content: space-between; */
     .pricepart{
         width: 50%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        justify-content: end;
+        align-items: end;
         gap: 3rem;
         .priceval{
             min-width: 150px;
@@ -183,13 +194,14 @@ const Service = styled.div`
         width: 40%;
         display: flex;
         flex-direction: column;
-    .Service-left{
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        .title{
-            font-family: 'Inter';
-            font-style: normal;
+        padding-right: 2rem;
+        .Service-left{
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            .title{
+                font-family: 'Inter';
+                font-style: normal;
             font-weight: 500;
             font-size: 19px;
             line-height: 26px;
@@ -323,6 +335,31 @@ const ContentPage = ({ data, ...props }: any) => {
     const his = useHistory()
     const [photos, setPhotos] = useState<any>([])
     const [images, setImages] = React.useState(null);
+    const images1 = [
+        {
+            src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
+            width: 320,
+            height: 174,
+            isSelected: true,
+            caption: "After Rain (Jeshu John - designerspics.com)",
+        },
+        {
+            src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
+            width: 320,
+            height: 212,
+            tags: [
+                { value: "Ocean", title: "Ocean" },
+                { value: "People", title: "People" },
+            ],
+            alt: "Boats (Jeshu John - designerspics.com)",
+        },
+
+        {
+            src: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg",
+            width: 320,
+            height: 212,
+        },
+    ];
     useEffect((): any => {
         let shouldCancel = false;
         const call = async () => {
@@ -334,8 +371,8 @@ const ContentPage = ({ data, ...props }: any) => {
 
                 setImages(
                     data.photo.map((url: any) => ({
-                        original: `https://api.total.digieye.io/upload/${url}`,
-                        thumbnail: `https://api.total.digieye.io/upload/${url}`
+                        original: `https://api.applooker.com/upload/${url}`,
+                        thumbnail: `https://api.applooker.com/upload/${url}`
                     }))
                 );
             }
@@ -363,39 +400,45 @@ const ContentPage = ({ data, ...props }: any) => {
             </div>
             <Styleimg>
                 <Image.PreviewGroup>
+                    {/* <ReactImageGallery photo  /> */}
                     {/* <ReactImageGallery  columns={columns} direction="column"/> */}
                     {
-                        <div className="biggimage">
-                            {
-                                images ? <ImageGallery items={images} /> : null
-                            }
-                        </div>
-                        // data.photo.map((stat: any, key: any) => {
-                        //     if (key == 0) {
-                        //         return (<>
-                        //                 <Image
-                        //                     className="myimg"
-                        //                     // width={200}
-                        //                     src="https://a0.muscache.com/im/pictures/105270429/847b9954_original.jpg?im_w=720"
-                        //                 />
-                        //         </>
-                        //         )
-                        //     }
-                        //     else {
-                        //         return (
-                        //             <div className="otherimages">
-                        //                 <div className="otherimages-left">
-                        //                     <div className="myimg">
-                        //                         <Image
-                        //                             // width={200}
-                        //                             src="https://a0.muscache.com/im/pictures/105270429/847b9954_original.jpg?im_w=720"
-                        //                         />
-                        //                     </div >
-                        //                 </div>
-                        //             </div>
-                        //         )
-                        //     }
-                        // })
+                        // <div className="biggimage">
+                        //     {
+                            //         images ? <ImageGallery items={images} /> : null
+                            //     }
+                            // </div>
+                            data.photo.map((stat: any, key: any) => {
+                                // return (
+                                //     <Gallery images={images1} />
+                                // )
+                            // if (key == 0) {
+                            return (<>
+                                <Image
+                                    className="myimg"
+                                    width={300}
+                                    height={200}
+                                    src={`https://api.applooker.com/upload/${stat}`}
+                                />
+                            </>
+                            )
+                            // }
+                            // else {
+                            //     return (
+                            //         <div className="otherimages">
+                            //             <div className="otherimages-left">
+                            //                 <div className="myimg">
+                            //                     <Image
+                            //                         // width={200}
+                            //                         // src="https://a0.muscache.com/im/pictures/105270429/847b9954_original.jpg?im_w=720"
+                            //                         src={`https://api.applooker.com/upload/${stat}`}
+                            //                     />
+                            //                 </div >
+                            //             </div>
+                            //         </div>
+                            //     )
+                            // }
+                        })
                     }
                 </Image.PreviewGroup>
             </Styleimg>

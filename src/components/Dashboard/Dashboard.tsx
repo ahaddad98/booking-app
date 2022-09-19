@@ -20,11 +20,11 @@ const Content = styled.div`
 export default function Dashboard(props: any) {
   const [data, setData] = useState<any>([])
   const his = useHistory()
-    useEffect(()=>{
-      if (!localStorage.getItem('token'))
-        his.push('/login')
-      // localStorage.getItem('token')
-    },[])
+    // useEffect(()=>{
+    //   if (!localStorage.getItem('token'))
+    //     his.push('/login')
+    //   // localStorage.getItem('token')
+    // },[])
     const getannounc =async () => {
         const {data} = await getAnnounces()
         // console.log(data);

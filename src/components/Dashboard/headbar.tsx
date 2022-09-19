@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Badge, Button, Input, Select } from 'antd';
 import type { DatePickerProps } from 'antd';
 import { DatePicker, Space } from 'antd';
 import { useHistory } from "react-router-dom";
+import { Modal } from 'antd';
 const HeadContentgloab = styled.div`
     width: 100%;
     display: flex;
@@ -237,7 +238,6 @@ const Bott = styled.div`
 
 const Headbar = (props: any) => {
     const { Option } = Select;
-
     const handleChange = (value: string) => {
         console.log(`selected ${value}`);
     };
@@ -245,30 +245,70 @@ const Headbar = (props: any) => {
         console.log(date, dateString);
     };
     const his = useHistory()
+    const [loggedin, setLoggedin] = useState(false)
+    useEffect(() => {
+        console.log(loggedin);
+        
+        if (localStorage.getItem('token')) {
+            // console.log('loggedin', localStorage.getItem('token'));
+            // if (localStorage.getItem('token') != null)
+                setLoggedin(true)
+        }
+        // localStorage.getItem('token')
+    }, [localStorage.getItem('token')])
+    const [isModalOpen, setIsModalOpen] = useState<any>(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
     return <HeadContentgloab>
         <HeadContent>
             <div className="Logo">
                 Logo
             </div>
             <div style={{ display: 'flex', gap: '3rem', alignItems: "center" }}>
-                <svg width="37" height="38" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22.2069 15.0486V12.5517H20.2759V15.4483C20.2759 15.7043 20.3777 15.9499 20.5588 16.1309L23.1724 18.7446V20.2759H1.93103V18.7446L4.54469 16.1309C4.72577 15.9499 4.82753 15.7043 4.82759 15.4483V11.5862C4.8249 10.2295 5.18029 8.89602 5.85788 7.72058C6.53546 6.54514 7.51124 5.56933 8.68666 4.8917C9.86207 4.21408 11.1955 3.85863 12.5522 3.86128C13.909 3.86392 15.241 4.22456 16.4138 4.90676V2.74883C15.4947 2.34188 14.5172 2.08251 13.5172 1.98028V0H11.5862V1.97931C9.2058 2.22159 6.99977 3.33791 5.3947 5.1124C3.78963 6.88689 2.89955 9.1935 2.89655 11.5862V15.0486L0.282897 17.6622C0.101814 17.8432 5.46844e-05 18.0888 0 18.3448V21.2414C0 21.4975 0.101724 21.743 0.282793 21.9241C0.463863 22.1052 0.709446 22.2069 0.965517 22.2069H7.72414V23.1724C7.72414 24.4528 8.23276 25.6807 9.13811 26.586C10.0435 27.4914 11.2714 28 12.5517 28C13.8321 28 15.06 27.4914 15.9653 26.586C16.8707 25.6807 17.3793 24.4528 17.3793 23.1724V22.2069H24.1379C24.394 22.2069 24.6396 22.1052 24.8207 21.9241C25.0017 21.743 25.1034 21.4975 25.1034 21.2414V18.3448C25.1034 18.0888 25.0016 17.8432 24.8206 17.6622L22.2069 15.0486ZM15.4483 23.1724C15.4483 23.9406 15.1431 24.6774 14.5999 25.2206C14.0567 25.7638 13.3199 26.069 12.5517 26.069C11.7835 26.069 11.0468 25.7638 10.5036 25.2206C9.96034 24.6774 9.65517 23.9406 9.65517 23.1724V22.2069H15.4483V23.1724Z" fill="#2D3962" />
-                    <path d="M22.2069 10.6206C24.3398 10.6206 26.0689 8.89148 26.0689 6.75852C26.0689 4.62556 24.3398 2.89645 22.2069 2.89645C20.0739 2.89645 18.3448 4.62556 18.3448 6.75852C18.3448 8.89148 20.0739 10.6206 22.2069 10.6206Z" fill="#FF5959" />
-                </svg>
-                <div className="profile">
-                    <img src="/1.png" width={50} height={50} alt="" style={{cursor: "pointer"}} onClick={() => his.push('profile/announce')}/>
-                    <div className="namemailprofile">
-                        <div className="nameprofile" style={{cursor: "pointer"}} onClick={() => his.push('profile/announce')}>
-                            Andy Warhol
-                        </div>
-                        <div className="mailprofile">
-                            andywarhol@mail.com
-                        </div>
-                    </div>
-                </div>
+                {
+                    loggedin == true ?
+                        <>
+                            <svg width="37" height="38" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.2069 15.0486V12.5517H20.2759V15.4483C20.2759 15.7043 20.3777 15.9499 20.5588 16.1309L23.1724 18.7446V20.2759H1.93103V18.7446L4.54469 16.1309C4.72577 15.9499 4.82753 15.7043 4.82759 15.4483V11.5862C4.8249 10.2295 5.18029 8.89602 5.85788 7.72058C6.53546 6.54514 7.51124 5.56933 8.68666 4.8917C9.86207 4.21408 11.1955 3.85863 12.5522 3.86128C13.909 3.86392 15.241 4.22456 16.4138 4.90676V2.74883C15.4947 2.34188 14.5172 2.08251 13.5172 1.98028V0H11.5862V1.97931C9.2058 2.22159 6.99977 3.33791 5.3947 5.1124C3.78963 6.88689 2.89955 9.1935 2.89655 11.5862V15.0486L0.282897 17.6622C0.101814 17.8432 5.46844e-05 18.0888 0 18.3448V21.2414C0 21.4975 0.101724 21.743 0.282793 21.9241C0.463863 22.1052 0.709446 22.2069 0.965517 22.2069H7.72414V23.1724C7.72414 24.4528 8.23276 25.6807 9.13811 26.586C10.0435 27.4914 11.2714 28 12.5517 28C13.8321 28 15.06 27.4914 15.9653 26.586C16.8707 25.6807 17.3793 24.4528 17.3793 23.1724V22.2069H24.1379C24.394 22.2069 24.6396 22.1052 24.8207 21.9241C25.0017 21.743 25.1034 21.4975 25.1034 21.2414V18.3448C25.1034 18.0888 25.0016 17.8432 24.8206 17.6622L22.2069 15.0486ZM15.4483 23.1724C15.4483 23.9406 15.1431 24.6774 14.5999 25.2206C14.0567 25.7638 13.3199 26.069 12.5517 26.069C11.7835 26.069 11.0468 25.7638 10.5036 25.2206C9.96034 24.6774 9.65517 23.9406 9.65517 23.1724V22.2069H15.4483V23.1724Z" fill="#2D3962" />
+                                <path d="M22.2069 10.6206C24.3398 10.6206 26.0689 8.89148 26.0689 6.75852C26.0689 4.62556 24.3398 2.89645 22.2069 2.89645C20.0739 2.89645 18.3448 4.62556 18.3448 6.75852C18.3448 8.89148 20.0739 10.6206 22.2069 10.6206Z" fill="#FF5959" />
+                            </svg>
+                            <div className="profile">
+                                <img src="/1.png" width={50} height={50} alt="" style={{ cursor: "pointer" }} onClick={() => his.push('profile/announce')} />
+                                <div className="namemailprofile">
+                                    <div className="nameprofile" style={{ cursor: "pointer" }} onClick={() => his.push('profile/announce')}>
+                                        Andy Warhol
+                                    </div>
+                                    <div className="mailprofile">
+                                        andywarhol@mail.com
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                        : <>
+                            <Button type="primary" className="bottonadd" onClick={()=> his.push('/login')} style={{padding: '1rem'}} >
+                                Create Account
+                            </Button>
+                            {/* <Modal title="Basic Modal" open={true} onOk={handleOk} onCancel={handleCancel}>
+                                <p>Some contents...</p>
+                                <p>Some contents...</p>
+                                <p>Some contents...</p>
+                            </Modal> */}
+                        </>
+                }
             </div>
         </HeadContent>
-        <div className="" style={{ display: 'flex', gap: '1rem' , flexWrap: "wrap"}}>
+        <div className="" style={{ display: 'flex', gap: '1rem', flexWrap: "wrap" }}>
             <ContentLefthead>
                 <div className="filter">
                     <div className="money">
@@ -351,7 +391,7 @@ const Headbar = (props: any) => {
             </ContentLefthead>
             <Bott>
                 <Button type="primary" className="btn">
-                    <i className='bx bx-search' style={{fontSize:'20px'}} ></i>
+                    <i className='bx bx-search' style={{ fontSize: '20px' }} ></i>
                     <div>
                         RECHERCHE
                     </div>

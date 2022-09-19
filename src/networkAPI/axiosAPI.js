@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'https://api.total.digieye.io/v1/',
-
+    baseURL: 'https://api.applooker.com/v1/',
 });
 
 instance.interceptors.request.use(async (config) => {
