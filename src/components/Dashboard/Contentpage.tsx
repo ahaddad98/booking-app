@@ -1,4 +1,4 @@
-import { Button, Select } from "antd";
+import { Button, Select, Spin } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Map2 from "./Carte";
@@ -18,6 +18,7 @@ import {
 } from 'react-reflex'
 import CardEl from "./Card";
 import { getAnnounces } from "../../networkAPI/axiosAPI";
+import Carte from "./Test";
 const Content = styled.div`
     width: 100%;
     display: flex;
@@ -136,76 +137,6 @@ const Content = styled.div`
     }
 `
 
-// const Cardhead = styled.div`
-//     width: 100%;
-//     min-height: 150px;
-//     display: flex;
-//     flex-direction: column;
-//     /* justify-content: space-between; */
-//     padding: 1rem;
-//     .Cardheadtop{
-//         width: 100%;
-//         display: flex;
-//         flex-direction: row;
-//         justify-content: space-between;
-//         align-items: center;
-//         .Cardheadtopleft{
-//             display: flex;
-//             flex-direction: column;
-//             gap: 1rem;
-//             .title1{
-//                 font-family: 'Roboto';
-//                 font-style: normal;
-//                 font-weight: 500;
-//                 font-size: 28px;
-//                 line-height: 33px;            
-//                 color: #2D3962;
-//             }
-//             .title2{
-//                 font-family: 'Roboto';
-//                 font-style: normal;
-//                 font-weight: 400;
-//                 font-size: 20px;
-//                 line-height: 23px;            
-//                 color: #667197;
-//             }
-//         }
-//         .Cardheadtopright{
-//             display: flex;
-//             gap: 2rem;
-//             justify-content: center;
-//             align-items: center;
-//         }
-//     }
-//     .Cardheadbottom{
-//         display: flex;
-//         flex-direction: row;
-//         justify-content: start;
-//         align-items: center;
-//         gap: 2rem;
-//         flex-wrap: wrap;
-//         .trie{
-//             margin-top: 2rem;
-//         }
-//         .price{
-//             display: flex;
-//             justify-content: center;
-//             align-items: center;
-//             gap: 1rem;
-//             border: 1px solid #2D3962;
-//             border-radius: 8px;
-//             padding: 0.5rem 1rem 0.5rem 1rem;
-//             margin-top: 2rem;
-//             min-width: 150px;
-//             flex-wrap: wrap;
-//             .Pricename{
-
-//             }
-//         }
-//     }
-
-// `
-
 const ContentPage = (props: any) => {
     const { Option } = Select;
     const handleChange = (value: string) => {
@@ -216,11 +147,11 @@ const ContentPage = (props: any) => {
     const componentRef = useRef<any>();
     const effectRun = useRef(false);
     const [mat, setMat] = useState<any>()
-    const getannounc =async () => {
-        const {data} = await getAnnounces()
+    const getannounc = async () => {
+        const { data } = await getAnnounces()
         // console.log(data);
         // if (data)
-            // props.setData((prev: any) => [...prev, ...data.results])
+        // props.setData((prev: any) => [...prev, ...data.results])
     }
     const handleScroll = (event: any) => {
         if (
@@ -245,36 +176,42 @@ const ContentPage = (props: any) => {
     }, [])
     return <Content>
         {/* <div> */}
-        <div className="Card" style={showmap ? { animation: 'mymovein .3s', width: '100%' } : {}}  ref={componentRef}>
-            <div className="Cardglob">
+                <div className="Card" style={showmap ? { animation: 'mymovein .3s', width: '100%' } : {}} ref={componentRef}>
+                    <div className="Cardglob">
+                        {
+                            props.data.results &&
+                            props.data.results.map((stat: any, key: any) => {
+                                return <CardEl data={stat} ref={componentRef} />
+                            })
+                        }
+                    </div>
+                </div>
                 {
-                        props.data.results && 
-                    props.data.results.map((stat: any, key: any) => {
-                        return <CardEl data={stat} ref={componentRef}/>
-                    })
+                     props.data.results && !showmap &&
+                    <div className="Carte" style={showmap ? { animation: 'mymovein .3s' } : { animation: 'mymoveonmap .3s' }}>
+                        <Map2 data={props.data.results} showmap={showmap} setShowmap={setShowmap} />
+                    </div>
                 }
-            </div>
-        </div>
-        {
-            !showmap &&
-            <div className="Carte" style={showmap ? { animation: 'mymovein .3s' } : { animation: 'mymoveonmap .3s' }}>
-                <Map2 showmap={showmap} setShowmap={setShowmap} />
-            </div>
-        }
-        {
-            showmap &&
-            <div className="toshowmap">
-                {/* <i class="fi fi-rr-angle-small-right"></i> */}
-                <i className="fi fi-sr-map" onClick={() => {
-                    setShowmap(!showmap)
-                    setTimeout(() => {
-                        // console.log('here');
-                        window.dispatchEvent(new Event('resize'))
-                    }, 300)
+                {
+                    props.data.results && showmap &&
+                    <div className="toshowmap" onClick={() => {
+                        setShowmap(!showmap)
+                        setTimeout(() => {
+                            // console.log('here');
+                            window.dispatchEvent(new Event('resize'))
+                        }, 300)
+                    }
+                    }>
+                        <i className="fi fi-sr-map" onClick={() => {
+                            setShowmap(!showmap)
+                            setTimeout(() => {
+                                // console.log('here');
+                                window.dispatchEvent(new Event('resize'))
+                            }, 300)
+                        }
+                        }></i>
+                    </div>
                 }
-                }></i>
-            </div>
-        }
     </Content>
 }
 

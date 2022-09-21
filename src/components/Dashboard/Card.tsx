@@ -370,7 +370,7 @@ const CardEl = ({ data, ...props }: any) => {
     }
     useEffect(() => {
         // console.log(
-        console.log(data);
+        // console.log(data);
         getequipementtrue()
         // getAddress(data.location.lat, data.location.lng)
         // );

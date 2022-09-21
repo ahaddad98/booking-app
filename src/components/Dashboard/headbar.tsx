@@ -247,7 +247,7 @@ const Headbar = (props: any) => {
     const his = useHistory()
     const [loggedin, setLoggedin] = useState(false)
     useEffect(() => {
-        console.log(loggedin);
+        // console.log(loggedin);
         
         if (localStorage.getItem('token')) {
             // console.log('loggedin', localStorage.getItem('token'));

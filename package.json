@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/runtime": "^7.19.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@flaticon/flaticon-uicons": "^1.7.0",
@@ -21,7 +22,6 @@
     "@types/react": "17.0.39",
     "@types/react-datepicker": "^4.4.2",
     "@types/react-dom": "^18.0.4",
-    "@types/react-image-gallery": "^1.0.5",
     "@types/react-router-dom": "^5.3.3",
     "antd": "^4.21.5",
     "apexcharts": "^3.35.3",
@@ -42,6 +42,7 @@
     "react-icons": "^4.4.0",
     "react-image-gallery": "^1.2.9",
     "react-leaflet": "^4.0.0",
+    "react-leaflet-enhanced-marker": "^1.0.21",
     "react-photo-gallery": "^8.0.0",
     "react-redux": "^8.0.2",
     "react-reflex": "^4.0.9",
