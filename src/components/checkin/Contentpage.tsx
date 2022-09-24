@@ -12,11 +12,7 @@ import 'react-day-picker/dist/style.css';
 import { format } from 'date-fns';
 import { DatePicker, Space } from 'antd';
 import { Carousel } from 'antd';
-import ReactImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
-import ImageGallery from "react-image-gallery";
-import axios from "axios";
-import { Gallery } from "react-grid-gallery";
 const contentStyle: React.CSSProperties = {
     height: '160px',
     color: '#fff',
@@ -32,6 +28,10 @@ const Content = styled.div`
         width: 100%;
         padding-left: 15%;
         padding-right: 15%;
+        @media screen and (max-width: 769px) {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
         .title{
             font-family: 'Roboto';
             font-style: normal;
@@ -129,6 +129,7 @@ const Price = styled.div`
     width: 100%;
     display: flex;
     margin-top: 3rem;
+    flex-wrap: wrap;
     /* justify-content: space-between; */
     .pricepart{
         width: 50%;
@@ -251,6 +252,9 @@ const Composant = styled.div`
         background: rgba(102, 113, 151, 0.13);
         border-radius: 6.35515px;
         padding: 1rem 2rem 1rem 2rem;
+        @media screen and (max-width: 769px) {
+            
+        }
         .text{
             font-family: 'Inter';
             font-style: normal;
@@ -354,7 +358,6 @@ const ContentPage = ({ data, ...props }: any) => {
         }
     }
     useEffect((): any => {
-        // console.log(data);
         getequipementtrue()
     }, [])
     return <Content>
@@ -446,19 +449,6 @@ const ContentPage = ({ data, ...props }: any) => {
                         {data.info[0].lounge} Salons
                     </div>
                 </div>
-                {/* <div className="element">
-                    <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16.2207 15.9104H5.53661V19.7285C5.53661 19.7473 5.5358 19.766 5.53516 19.7847H16.2222C16.2215 19.766 16.2207 19.7473 16.2207 19.7285V15.9104Z" fill="#667197" />
-                        <path d="M1.32791 6.21048H12.6062C12.9474 6.21048 13.2239 5.93393 13.2239 5.59277V1.42013C13.2239 1.07897 12.9474 0.802425 12.6062 0.802425H1.32791C0.986748 0.802425 0.710205 1.07897 0.710205 1.42013V5.59277C0.710205 5.93393 0.986748 6.21048 1.32791 6.21048Z" fill="#667197" />
-                        <path d="M19.2937 10.0846V12.036H19.6449V7.02341H21.2157C21.405 7.02341 21.5839 6.93654 21.7011 6.7878C21.8182 6.63889 21.8606 6.44454 21.8161 6.2605L20.8715 2.35587C20.8044 2.07868 20.5564 1.88336 20.2712 1.88336H17.7832C17.4982 1.88336 17.25 2.07868 17.1829 2.35587L16.2382 6.2605C16.1938 6.44454 16.2361 6.63889 16.3533 6.7878C16.4705 6.93654 16.6493 7.02341 16.8387 7.02341H18.4095V8.50555C18.9395 8.83205 19.2937 9.41769 19.2937 10.0846Z" fill="#667197" />
-                        <path d="M16.2209 14.6747V13.7395C16.2209 12.8001 16.9851 12.0359 17.9245 12.0359H18.0581V10.0845C18.0581 9.74381 17.7811 9.46678 17.4404 9.46678H4.31717C3.97665 9.46678 3.69946 9.74381 3.69946 10.0845V12.0359H3.83306C4.77244 12.0359 5.53663 12.8001 5.53663 13.7395V14.6747H16.2209Z" fill="#667197" />
-                        <path d="M4.30131 13.7395C4.30131 13.4814 4.09133 13.2713 3.83316 13.2713H1.62807C1.3699 13.2713 1.15991 13.4814 1.15991 13.7395V19.7283C1.15991 19.9865 1.3699 20.1965 1.62807 20.1965H3.83316C4.09133 20.1965 4.30131 19.9865 4.30131 19.7283V13.7395Z" fill="#667197" />
-                        <path d="M20.5979 19.7283V13.7395C20.5979 13.4814 20.3877 13.2713 20.1295 13.2713H17.9245C17.6663 13.2713 17.4563 13.4814 17.4563 13.7395V19.7283C17.4563 19.9865 17.6663 20.1965 17.9245 20.1965H20.1295C20.3877 20.1965 20.5979 19.9865 20.5979 19.7283Z" fill="#667197" />
-                    </svg>
-                    <div className="text">
-                        3 Bedrooms
-                    </div>
-                </div> */}
                 <div className="element">
                     <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16.2207 15.9104H5.53661V19.7285C5.53661 19.7473 5.5358 19.766 5.53516 19.7847H16.2222C16.2215 19.766 16.2207 19.7473 16.2207 19.7285V15.9104Z" fill="#667197" />
@@ -545,7 +535,6 @@ const ContentPage = ({ data, ...props }: any) => {
                     </svg>
                     <div className="text">
                         address
-                        {/* Route De Fes, Kilomètre 4 , Palmeraie, Marrakech */}
                     </div>
                 </div>
                 <div className="adress">

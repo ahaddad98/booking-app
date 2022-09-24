@@ -225,7 +225,7 @@ const Bott = styled.div`
         text-align: center;    
         color: #FFFFFF;
         width: 174px;
-        @media screen and (max-width: 400px){
+        @media screen and (max-width: 500px){
                 /* display: none; */
                 /* min-width: 100px; */
                 /* width: 200px; */

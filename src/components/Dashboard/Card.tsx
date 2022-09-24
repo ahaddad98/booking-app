@@ -6,21 +6,18 @@ import { Rate } from 'antd';
 import { Image } from 'antd';
 import { useHistory, useParams } from "react-router-dom";
 import 'react-reflex/styles.css'
-import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Divider, Tooltip } from 'antd';
-import { Carousel } from 'antd';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 import axios from "axios";
 
 const CardElement = styled.div`
     max-width: 900px;
     width: 100%;
-    /* flex: 0 1 900px; */
     padding: 0rem 2rem 0rem 2rem;
     @media screen and (max-width: 584px){
         width: 100%;
        padding: 5px;
     }
-    //584
     .cardel{
         width: 100%;
         background: #FFFFFF;
@@ -30,7 +27,6 @@ const CardElement = styled.div`
         min-height: 100px;
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
         .left{
             white-space: nowrap;
             width: 25%;
@@ -43,7 +39,7 @@ const CardElement = styled.div`
                 width: 20%;
             }
             //361
-            @media screen and (max-width: 361px){
+            @media screen and (max-width: 500px){
                 width: 100%;
             }
             .widtimage{
@@ -53,8 +49,11 @@ const CardElement = styled.div`
                 @media screen and (max-width: 700px){
                     width: 90%;
                 }
+                /* @media screen and (max-width: 500px){
+                    width: 300px;
+                } */
             }
-            .images{
+            /* .images{
                 display: flex;
                 gap: 1rem;
                 width: 100%;
@@ -67,10 +66,8 @@ const CardElement = styled.div`
                     @media screen and (max-width: 361px){
                         width: 40px;
                     }
-                    /* width: auto; */
-                    /* height: auto; */
                 }
-            }
+            } */
         }
         .right{
             white-space: nowrap;
@@ -82,6 +79,18 @@ const CardElement = styled.div`
             justify-content: space-between;
             align-items: flex-end;
             //511
+            @media screen and (max-width: 1441px) and (min-width: 1201px){
+                    width: 100%;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    /* padding: 5px; */
+            }
+            @media screen and (max-width: 768px){
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-around;
+                /* padding: 5px; */
+            }
             @media screen and (max-width: 584px){
                 width: 100%;
                 flex-direction: row;
@@ -93,6 +102,7 @@ const CardElement = styled.div`
                 flex-wrap: wrap;
                 flex-direction: column;
                 align-items: flex-end;
+                
                 @media screen and (max-width: 584px){
                     /* width: 100%; */
                     flex-direction: row;
@@ -169,6 +179,10 @@ const CardElement = styled.div`
             flex-direction: column;
             justify-content: space-between;
             gap: .5rem;
+            @media screen and (max-width: 500px){
+                width: 100%;
+                padding-left: 3rem;
+            }
             .title1{
                 font-family: 'Roboto';
                 font-style: normal;
@@ -369,33 +383,28 @@ const CardEl = ({ data, ...props }: any) => {
         }
     }
     useEffect(() => {
-        // console.log(
-        // console.log(data);
         getequipementtrue()
-        // getAddress(data.location.lat, data.location.lng)
-        // );
-        // console.log(place);
     }, [])
     return <CardElement>
         <div className="cardel" ref={props.ref}>
             {
                 <div className="left" style={{ display: "flex", flexDirection: 'row', gap: '10px' }}>
                     <div className="left">
-                        <Carousel >
-                            {
-                                data.photo.map((stat: any, key: any) => {
-                                    return (
-                                        <Image.PreviewGroup>
+                        <Image.PreviewGroup>
+                            <Carousel>
+                                {
+                                    data.photo.map((stat: any, key: any) => {
+                                        return (
                                             <Image
                                                 className="widtimage"
                                                 src={`https://api.applooker.com/upload/${stat}`}
                                                 fallback="data:image/png;base64,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"
                                             />
-                                        </Image.PreviewGroup>
-                                    )
-                                })
-                            }
-                        </Carousel>
+                                        )
+                                    })
+                                }
+                            </Carousel>
+                        </Image.PreviewGroup>
                     </div>
                 </div>
             }
@@ -415,26 +424,11 @@ const CardEl = ({ data, ...props }: any) => {
                             </div>
                         })
                     }
-                    {/* Wifi • Air conditioning • Kitchen • Heating • Smokers
-                    <br />
-                    • Parking • Balcony • Animal friendly */}
                 </div>
-                {/* <div className="line4">
-                    <div className="newpar">
-                        <div className="new">
-                            New Building
-                        </div>
-                    </div>
-                    <div className="commonpar">
-                        <div className="common">
-                            Common Friends
-                        </div>
-                    </div>
-                </div> */}
                 <div className="line5">
                     <div className="val">4.0</div>
                     <Rate disabled defaultValue={4} style={{ color: "#2B67F6", fontSize: "12px" }} />
-                    <div>{data.city}</div>
+                    {/* <div>{data.city}</div> */}
                 </div>
             </div>
             <div className="right">
