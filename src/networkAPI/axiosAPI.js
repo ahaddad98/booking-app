@@ -67,11 +67,11 @@ export const Addannounce = async (data, dataimages, checkedValues) => {
     formData.append("city", '5c0a7922c9d89830f4911426');
     formData.append("postType", '5c0a7922c9d89830f4911426');
     formData.append("area", data.values.Superficie);
-    formData.append("location[lat]", 10);
+    formData.append("location[lat]", 33);
     formData.append("price", data.values.Price);
     // formData.append("phoneNumber", '+7687587687');
     formData.append("phone", '10658587687');
-    formData.append("location[lng]", 10);
+    formData.append("location[lng]", 33);
     formData.append("postCategory", '5c0a7922c9d89830f4911426');
     formData.append("stage", 10);
     formData.append("age", data.addvalue.age);
