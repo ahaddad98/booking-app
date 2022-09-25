@@ -186,12 +186,12 @@ const Price = styled.div`
 `
 
 const Service = styled.div`
-    /* margin-top: 2rem; */
     width: 100%;
     display: flex;
     flex-direction: row;
-    /* flex-direction: column; */
+    flex-wrap: wrap;
     .colomn{
+        min-width: 200px;
         width: 40%;
         display: flex;
         flex-direction: column;
@@ -234,10 +234,13 @@ const Service = styled.div`
                     line-height: 24px;
                     color: #2D3962;
                 }
+            }
         }
     }
     }
-}
+    .mapdiv{
+        min-width: 300px;
+    }
 `
 
 const Composant = styled.div`
@@ -246,6 +249,7 @@ const Composant = styled.div`
     /* justify-content: center; */
     margin: 2rem 0rem 2rem 0rem;
     gap: 2rem;
+    flex-wrap: wrap;
     .element{
         display: flex;
         gap: 2rem;
@@ -520,7 +524,7 @@ const ContentPage = ({ data, ...props }: any) => {
                         </div>
                     </div>
                 </div>
-                <div style={{ width: '60%', marginTop: '2rem' }}>
+                <div className="mapdiv" style={{ width: '60%', marginTop: '2rem'}}>
                     <Map2 />
                 </div>
             </Service>
